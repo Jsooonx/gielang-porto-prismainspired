@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { HeroSection } from "./components/HeroSection";
@@ -12,15 +7,13 @@ import { AchievementsSection } from "./components/AchievementsSection";
 
 export default function App() {
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 1.2, // Faster, more responsive scroll (closer to default, less sluggish)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Silky smooth exponential ease-out
-      wheelMultiplier: 1.0, // Standard multiplier for responsive scroll distance
-      syncTouch: false, // Disable touch/trackpad sync to let OS handle high-refresh inertial scroll natively (prevents stuttering)
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      wheelMultiplier: 1.0,
+      syncTouch: false,
     });
 
-    // Custom animation frame loop for Lenis
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
@@ -28,7 +21,7 @@ export default function App() {
     }
     rafId = requestAnimationFrame(raf);
 
-    // Intercept anchor link clicks to scroll smoothly with Lenis
+    // Smooth anchor scroll
     const handleAnchorClick = (e: MouseEvent) => {
       const targetEl = e.target as HTMLElement;
       const anchor = targetEl.closest("a");
@@ -40,7 +33,7 @@ export default function App() {
           if (target) {
             lenis.scrollTo(target, {
               offset: 0,
-              duration: 2.0, // A bit slower for anchor transitions
+              duration: 2.0,
             });
           }
         }
@@ -58,21 +51,12 @@ export default function App() {
 
   return (
     <div className="bg-black text-[#E1E0CC] selection:bg-primary selection:text-black min-h-screen font-sans">
-      {/* SECTION 1: HERO */}
       <HeroSection />
-
-      {/* SECTION 2: ABOUT */}
       <AboutSection />
-
-      {/* SECTION 3: PROJECTS */}
       <ProjectsSection />
-
-      {/* SECTION 4: ACHIEVEMENTS */}
       <AchievementsSection />
 
-      {/* CINEMATIC FOOTER */}
       <footer id="inquiries" className="bg-black py-16 px-6 sm:px-12 md:px-24 border-t border-white/5 relative overflow-hidden">
-        {/* Subtle grid background to match the style */}
         <div className="absolute inset-0 bg-noise opacity-[0.05] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10 text-center md:text-left">

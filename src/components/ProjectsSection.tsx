@@ -53,10 +53,8 @@ export function ProjectsSection() {
       id="projects"
       className="relative bg-black py-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden"
     >
-      {/* Background noise */}
       <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
 
-      {/* Heading card */}
       <div ref={headerRef} className="max-w-4xl mx-auto mb-16 relative z-10 w-full">
         <motion.div
           variants={containerVariants}
@@ -79,7 +77,6 @@ export function ProjectsSection() {
         </motion.div>
       </div>
 
-      {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-center gap-2 mb-16 relative z-20 max-w-2xl mx-auto">
         {filterOptions.map((option) => (
           <button
@@ -96,12 +93,10 @@ export function ProjectsSection() {
         ))}
       </div>
 
-      {/* Cards Grid */}
       <motion.div
         layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto w-full relative z-10"
       >
-        {/* Decorative video card */}
         {activeFilter === 'all' && (
           <motion.div
             key="decorative-video"
@@ -131,7 +126,6 @@ export function ProjectsSection() {
           </motion.div>
         )}
 
-        {/* Project cards */}
         {projectsData
           .filter((project) => activeFilter === 'all' || project.category === activeFilter)
           .map((project) => (
@@ -147,7 +141,6 @@ export function ProjectsSection() {
               className="bg-[#121212] rounded-2xl border border-white/5 flex flex-col justify-between p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black h-full"
             >
               <div>
-                {/* Badge & Links Row */}
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-[9px] font-mono text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
                     {project.category === 'python'
@@ -182,15 +175,12 @@ export function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Title */}
                 <h3 className="text-xl font-normal text-[#E1E0CC] mb-3">{project.title}</h3>
 
-                {/* Description */}
                 <p className="text-xs text-gray-400 font-light leading-relaxed mb-6">
                   {project.description}
                 </p>
 
-                {/* Checklist */}
                 {project.details && (
                   <div className="space-y-2.5 mb-6 border-t border-white/5 pt-4">
                     {project.details.map((detail, idx) => (
@@ -205,7 +195,6 @@ export function ProjectsSection() {
                 )}
               </div>
 
-              {/* Tech Badges */}
               <div className="pt-4 border-t border-white/5 flex flex-wrap gap-1.5">
                 {project.techStack.map((tech) => (
                   <span

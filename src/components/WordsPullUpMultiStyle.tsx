@@ -11,7 +11,6 @@ export function WordsPullUpMultiStyle({ segments, className = "" }: WordsPullUpM
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
 
-  // Flatten segments to track all words with their respective classes
   const words = segments.flatMap((segment) => {
     return segment.text.split(" ").map((w) => ({
       text: w,

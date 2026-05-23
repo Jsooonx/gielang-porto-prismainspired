@@ -29,7 +29,7 @@ export function WordsPullUp({ text, className = "", showAsterisk = false }: Word
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1], // Custom cinematic ease
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };

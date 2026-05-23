@@ -14,7 +14,6 @@ function AnimatedLetter({ char, index, totalChars, scrollYProgress }: AnimatedLe
   const start = Math.max(0, charProgress - 0.1);
   const end = Math.min(1, charProgress + 0.05);
 
-  // Avoid identical start and end points
   const safeEnd = end > start ? end : start + 0.0001;
   const opacity = useTransform(scrollYProgress, [start, safeEnd], [0.2, 1]);
 
@@ -58,7 +57,6 @@ export function AboutTextReveal({ text, className = "" }: AboutTextRevealProps) 
   );
 }
 
-// Simple unique key helper
 function idxKey(char: string, index: number): string {
   return `${char}-${index}`;
 }

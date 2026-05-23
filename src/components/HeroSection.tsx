@@ -43,10 +43,8 @@ export function HeroSection() {
 
   return (
     <section className="relative h-screen w-full p-4 md:p-6 bg-black flex flex-col justify-between">
-      {/* Outer rounded container giving an inset frame effect */}
       <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col justify-between">
         
-        {/* Background Video */}
         <video
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
           autoPlay
@@ -56,13 +54,10 @@ export function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         />
 
-        {/* Noise overlay filter */}
         <div className="absolute inset-0 noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none select-none z-10" />
 
-        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80 pointer-events-none z-10" />
 
-        {/* Navbar */}
         <nav className="absolute top-0 left-1/2 -translate-x-1/2 z-50 bg-black/95 rounded-b-2xl md:rounded-b-3xl px-6 py-3 md:px-12 flex items-center justify-center gap-4 sm:gap-6 md:gap-10 lg:gap-12 border-x border-b border-white/5 shadow-2xl">
           {navItems.map((item) => (
             <a
@@ -78,14 +73,11 @@ export function HeroSection() {
           ))}
         </nav>
 
-        {/* Dummy Top Content Spacer */}
         <div />
 
-        {/* Bottom Hero Content */}
         <div className="relative z-20 w-full p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-end items-center">
           <div className="max-w-7xl mx-auto w-full flex flex-col items-center gap-6 text-center">
             
-            {/* Giant Title */}
             <div className="w-full flex justify-center select-none mb-1">
               <WordsPullUp
                 text="Gielang"
@@ -94,10 +86,8 @@ export function HeroSection() {
               />
             </div>
 
-            {/* Description Paragraph & CTA Button Stack */}
             <div className="flex flex-col items-center gap-6 max-w-xl sm:max-w-2xl">
               
-              {/* Description Paragraph */}
               <motion.p
                 variants={descVariants}
                 initial="hidden"
@@ -107,7 +97,6 @@ export function HeroSection() {
                 Gielang is an aspiring computer science student and full-stack developer. Combining software engineering with hands-on robotics, he builds intelligent systems and interactive web applications.
               </motion.p>
 
-              {/* CTA Button */}
               <motion.div
                 variants={buttonVariants}
                 initial="hidden"

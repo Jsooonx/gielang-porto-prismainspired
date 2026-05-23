@@ -49,11 +49,9 @@ export function AchievementsSection() {
 
   return (
     <section id="achievements" className="relative bg-black py-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden">
-      {/* Decorative glows */}
       <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Heading card */}
       <div ref={headerRef} className="max-w-4xl mx-auto mb-16 relative z-10 w-full">
         <motion.div
           variants={containerVariants}
@@ -76,7 +74,6 @@ export function AchievementsSection() {
         </motion.div>
       </div>
 
-      {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-center gap-2 mb-16 relative z-20 max-w-2xl mx-auto">
         {filterOptions.map((option) => (
           <button
@@ -93,7 +90,6 @@ export function AchievementsSection() {
         ))}
       </div>
 
-      {/* Timeline — all items always rendered, hidden items collapse smoothly */}
       <div className="max-w-2xl mx-auto relative z-10">
         {achievementsData.map((item) => {
           const isVisible = activeFilter === 'all' || item.category === activeFilter;
@@ -109,7 +105,6 @@ export function AchievementsSection() {
               }}
             >
               <div className="relative flex gap-8 sm:gap-12">
-                {/* Left: icon + vertical line */}
                 <div className="flex flex-col items-center shrink-0 pt-1">
                   <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0">
                     {item.category === "achievement" ? (
@@ -121,7 +116,6 @@ export function AchievementsSection() {
                   <div className="w-[1px] flex-1 bg-white/[0.08] mt-3" />
                 </div>
 
-                {/* Right: year + role + card */}
                 <div className="flex-1 pb-14">
                   <p className="font-serif italic text-3xl sm:text-4xl text-primary mb-1 leading-none">
                     {item.year}
