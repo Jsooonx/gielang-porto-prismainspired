@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, AnimatePresence } from "motion/react";
 import { Trophy, Sparkles, Pin, GraduationCap } from "lucide-react";
 import { achievementsData } from "../data";
 
@@ -92,67 +92,69 @@ export function AchievementsSection() {
       </div>
 
       <div className="max-w-2xl mx-auto relative z-10">
-        {achievementsData.map((item) => {
-          const isVisible = activeFilter === 'all' || item.category === activeFilter;
+        <motion.div layout className="space-y-0">
+          <AnimatePresence initial={false}>
+            {achievementsData
+              .filter((item) => activeFilter === 'all' || item.category === activeFilter)
+              .map((item) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="relative flex gap-8 sm:gap-12">
+                    <div className="flex flex-col items-center shrink-0 pt-1">
+                      <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0">
+                        {item.category === "achievement" ? (
+                          <Trophy className="w-3.5 h-3.5" />
+                        ) : item.category === "education" ? (
+                          <GraduationCap className="w-3.5 h-3.5" />
+                        ) : (
+                          <Sparkles className="w-3.5 h-3.5" />
+                        )}
+                      </div>
+                      <div className="w-[1px] flex-1 bg-white/[0.08] mt-3" />
+                    </div>
 
-          return (
-            <div
-              key={item.id}
-              style={{
-                maxHeight: isVisible ? "1000px" : "0px",
-                opacity: isVisible ? 1 : 0,
-                overflow: "hidden",
-                transition: "max-height 0.4s ease, opacity 0.3s ease",
-              }}
-            >
-              <div className="relative flex gap-8 sm:gap-12">
-                <div className="flex flex-col items-center shrink-0 pt-1">
-                  <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0">
-                    {item.category === "achievement" ? (
-                      <Trophy className="w-3.5 h-3.5" />
-                    ) : item.category === "education" ? (
-                      <GraduationCap className="w-3.5 h-3.5" />
-                    ) : (
-                      <Sparkles className="w-3.5 h-3.5" />
-                    )}
+                    <div className="flex-1 pb-14">
+                      <p className="font-serif italic text-3xl sm:text-4xl text-primary mb-1 leading-none">
+                        {item.year}
+                      </p>
+                      {item.role && (
+                        <p className="text-[10px] font-mono uppercase tracking-widest text-primary/50 mb-4">
+                          {item.role}
+                        </p>
+                      )}
+                      <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300">
+                        <h4 className="text-base sm:text-lg font-normal text-[#E1E0CC] mb-2">
+                          {item.title}
+                        </h4>
+                        <p className="text-xs text-gray-400 font-light leading-relaxed mb-5">
+                          {item.description}
+                        </p>
+                        {item.details && (
+                          <ul className="space-y-2">
+                            {item.details.map((detail, dIdx) => (
+                              <li key={dIdx} className="flex items-start gap-2.5">
+                                <Pin className="w-3 h-3 text-primary/40 shrink-0 mt-0.5" />
+                                <span className="text-[11px] text-gray-500 font-light leading-normal">
+                                  {detail}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-[1px] flex-1 bg-white/[0.08] mt-3" />
-                </div>
-
-                <div className="flex-1 pb-14">
-                  <p className="font-serif italic text-3xl sm:text-4xl text-primary mb-1 leading-none">
-                    {item.year}
-                  </p>
-                  {item.role && (
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-primary/50 mb-4">
-                      {item.role}
-                    </p>
-                  )}
-                  <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300">
-                    <h4 className="text-base sm:text-lg font-normal text-[#E1E0CC] mb-2">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs text-gray-400 font-light leading-relaxed mb-5">
-                      {item.description}
-                    </p>
-                    {item.details && (
-                      <ul className="space-y-2">
-                        {item.details.map((detail, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-2.5">
-                            <Pin className="w-3 h-3 text-primary/40 shrink-0 mt-0.5" />
-                            <span className="text-[11px] text-gray-500 font-light leading-normal">
-                              {detail}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+                </motion.div>
+              ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
