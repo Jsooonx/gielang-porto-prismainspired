@@ -115,16 +115,29 @@ export function AchievementsSection() {
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="relative flex flex-col lg:flex-row gap-0 group/item">
-                    {/* Left Side Column - Desktop only (Image on Left in Pola 2) */}
-                    <div className="hidden lg:flex lg:w-[180px] xl:w-[240px] 2xl:w-[280px] lg:shrink-0 justify-end pt-[54px] relative">
+                  <div className="relative flex flex-col lg:grid lg:grid-cols-[150px_80px_1fr] xl:grid-cols-[200px_100px_1fr] 2xl:grid-cols-[240px_120px_1fr] gap-0 group/item">
+                    {/* Row 1 (Header) - Desktop only */}
+                    <div className="hidden lg:block lg:col-start-3 lg:row-start-1 pb-4">
+                      <p className="font-serif italic text-3xl sm:text-4xl text-primary mb-1 leading-none">{item.year}</p>
+                      {item.role && (
+                        <p className="text-[10px] font-mono uppercase tracking-widest text-primary/50 mb-0">{item.role}</p>
+                      )}
+                    </div>
+
+                    {/* Row 1, Column 2 - Desktop vertical line upper half */}
+                    <div className="hidden lg:flex lg:col-start-2 lg:row-start-1 justify-center relative w-full h-full">
+                      <div className="w-[1px] h-full bg-white/[0.08]" />
+                    </div>
+
+                    {/* Left Side Column - Desktop only (Image on Left in Pola 2) - Row 2, Column 1 */}
+                    <div className="hidden lg:flex lg:col-start-1 lg:row-start-2 justify-end items-center relative">
                       {isImageLeft && (
                         <motion.div
                           initial={{ opacity: 0, scale: 1.05 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                          className="lg:w-[180px] xl:w-[240px] 2xl:w-[280px] lg:h-[120px] xl:h-[160px] 2xl:h-[180px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
+                          className="lg:w-[150px] xl:w-[200px] 2xl:w-[240px] lg:h-[100px] xl:h-[133px] 2xl:h-[160px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
                         >
                           <img
                             src={item.image}
@@ -135,9 +148,13 @@ export function AchievementsSection() {
                       )}
                     </div>
 
-                    {/* Middle Column - Line & Icon (responsive width) */}
-                    <div className="flex flex-col items-center shrink-0 w-9 lg:w-[50px] xl:w-[70px] 2xl:w-[80px] pt-1 relative">
-                      <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0 z-10">
+                    {/* Desktop Middle Column - Row 2, Column 2 */}
+                    <div className="hidden lg:flex lg:col-start-2 lg:row-start-2 items-center justify-center relative h-full w-full min-h-[120px]">
+                      {/* Continuous Vertical Line for Desktop */}
+                      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/[0.08] z-0" />
+                      
+                      {/* Circle Icon */}
+                      <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0 z-10 relative">
                         {item.category === "achievement" ? (
                           <Trophy className="w-3.5 h-3.5" />
                         ) : item.category === "education" ? (
@@ -146,11 +163,10 @@ export function AchievementsSection() {
                           <Sparkles className="w-3.5 h-3.5" />
                         )}
                       </div>
-                      <div className="w-[1px] flex-1 bg-white/[0.08] mt-3" />
-                      
-                      {/* Left-pointing dashed connector (Desktop only, Pola 2) */}
+
+                      {/* Left Connector (Pola 2 only) */}
                       {isImageLeft && (
-                        <div className="hidden lg:flex absolute left-0 right-0 h-4 lg:top-[106px] xl:top-[126px] 2xl:top-[136px] z-0 items-center justify-start text-primary/40 pointer-events-none">
+                        <div className="absolute left-0 lg:w-[22px] xl:w-[32px] 2xl:w-[42px] top-1/2 -translate-y-1/2 flex items-center justify-start text-primary/40 pointer-events-none z-10">
                           <motion.div
                             initial={{ opacity: 0, x: 5 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -158,7 +174,7 @@ export function AchievementsSection() {
                             transition={{ delay: 0.4, duration: 0.3 }}
                             className="shrink-0 -mr-1 flex items-center z-10"
                           >
-                            <ArrowLeft className="w-3.5 h-3.5" />
+                            <ArrowLeft className="w-3 h-3" />
                           </motion.div>
                           <motion.div
                             initial={{ scaleX: 0 }}
@@ -170,90 +186,119 @@ export function AchievementsSection() {
                           />
                         </div>
                       )}
+
+                      {/* Right Connector (All items) */}
+                      <div className="absolute right-0 lg:w-[22px] xl:w-[32px] 2xl:w-[42px] top-1/2 -translate-y-1/2 flex items-center justify-end text-primary/40 pointer-events-none z-10">
+                        <motion.div
+                          initial={{ scaleX: 0 }}
+                          whileInView={{ scaleX: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                          style={{ originX: 0 }}
+                          className="h-[1px] border-t border-dashed border-primary/30 flex-grow"
+                        />
+                        <motion.div
+                          initial={{ opacity: 0, x: -5 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.4, duration: 0.3 }}
+                          className="shrink-0 -ml-1 flex items-center z-10"
+                        >
+                          <ArrowRight className="w-3 h-3" />
+                        </motion.div>
+                      </div>
                     </div>
 
-                    {/* Right Column - Content (Card & optional Image on Right in Pola 1) */}
-                    <div className="flex-grow pb-14">
-                      {/* Mobile header (hidden on desktop) */}
-                      <div className="lg:hidden mt-1">
-                        <p className="font-serif italic text-2xl text-primary leading-none">{item.year}</p>
-                        {item.role && (
-                          <p className="text-[9px] font-mono uppercase tracking-widest text-primary/50 mt-1 mb-4">{item.role}</p>
+                    {/* Mobile Middle Column - Shown only on Mobile */}
+                    <div className="flex flex-col items-center shrink-0 w-9 pt-1 relative lg:hidden">
+                      <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0 z-10">
+                        {item.category === "achievement" ? (
+                          <Trophy className="w-3.5 h-3.5" />
+                        ) : item.category === "education" ? (
+                          <GraduationCap className="w-3.5 h-3.5" />
+                        ) : (
+                          <Sparkles className="w-3.5 h-3.5" />
                         )}
                       </div>
+                      <div className="w-[1px] flex-grow bg-white/[0.08] mt-3" />
+                    </div>
 
-                      {/* Desktop header (hidden on mobile) */}
-                      <div className="hidden lg:block">
-                        <p className="font-serif italic text-3xl sm:text-4xl text-primary mb-1 leading-none">{item.year}</p>
-                        {item.role && (
-                          <p className="text-[10px] font-mono uppercase tracking-widest text-primary/50 mb-4">{item.role}</p>
-                        )}
-                      </div>
-
-                      {/* Card & Image Container */}
-                      <div className="flex flex-col lg:flex-row lg:items-center lg:gap-4 xl:gap-6 2xl:gap-8 w-full mt-2 lg:mt-0">
-                        {/* Card */}
-                        <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300 w-full lg:w-[360px] xl:w-[440px] 2xl:w-[480px] lg:shrink-0 relative z-10">
-                          <h4 className="text-base sm:text-lg font-normal text-[#E1E0CC] mb-2">{item.title}</h4>
-                          <p className="text-xs text-gray-400 font-light leading-relaxed mb-5">{item.description}</p>
-                          
-                          {item.details && (
-                            <ul className="space-y-2">
-                              {item.details.map((detail, dIdx) => (
-                                <li key={dIdx} className="flex items-start gap-2.5">
-                                  <Pin className="w-3.5 h-3.5 text-primary/40 shrink-0 mt-0.5" />
-                                  <span className="text-[11px] text-gray-500 font-light leading-normal">{detail}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-
-                          {/* Mobile-only Image (embedded at bottom of Card) */}
-                          {hasImage && (
-                            <div className="lg:hidden mt-5 w-full rounded-xl border border-white/5 overflow-hidden bg-zinc-950">
-                              <img src={item.image} alt={item.title} className="w-full h-auto object-cover max-h-[220px]" />
-                            </div>
+                    {/* Right Column - Content (Card & optional Image on Right in Pola 1) - Row 2, Column 3 */}
+                    <div className="flex-grow pb-14 lg:col-start-3 lg:row-start-2 lg:flex lg:items-center">
+                      <div className="w-full">
+                        {/* Mobile header (hidden on desktop) */}
+                        <div className="lg:hidden mt-1">
+                          <p className="font-serif italic text-2xl text-primary leading-none">{item.year}</p>
+                          {item.role && (
+                            <p className="text-[9px] font-mono uppercase tracking-widest text-primary/50 mt-1 mb-4">{item.role}</p>
                           )}
                         </div>
 
-                        {/* Right-pointing connector and Right Image - Desktop only (Pola 1) */}
-                        {isImageRight && (
-                          <>
-                            <div className="hidden lg:flex items-center justify-center flex-grow min-w-[24px] lg:max-w-[30px] xl:max-w-[60px] 2xl:max-w-[80px] text-primary/40">
-                              <motion.div
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, ease: "easeOut" }}
-                                style={{ originX: 0 }}
-                                className="h-[1px] border-t border-dashed border-primary/30 flex-grow"
-                              />
-                              <motion.div
-                                initial={{ opacity: 0, x: -5 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.4, duration: 0.3 }}
-                                className="shrink-0 -ml-1 flex items-center"
-                              >
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </motion.div>
-                            </div>
+                        {/* Card & Image Container */}
+                        <div className="flex flex-col lg:flex-row lg:items-center lg:gap-3 xl:gap-4 2xl:gap-6 w-full mt-2 lg:mt-0">
+                          {/* Card */}
+                          <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300 w-full lg:w-[320px] xl:w-[380px] 2xl:w-[420px] lg:shrink-0 relative z-10">
+                            <h4 className="text-base sm:text-lg font-normal text-[#E1E0CC] mb-2">{item.title}</h4>
+                            <p className="text-xs text-gray-400 font-light leading-relaxed mb-5">{item.description}</p>
+                            
+                            {item.details && (
+                              <ul className="space-y-2">
+                                {item.details.map((detail, dIdx) => (
+                                  <li key={dIdx} className="flex items-start gap-2.5">
+                                    <Pin className="w-3.5 h-3.5 text-primary/40 shrink-0 mt-0.5" />
+                                    <span className="text-[11px] text-gray-500 font-light leading-normal">{detail}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
 
-                            <motion.div
-                              initial={{ opacity: 0, scale: 1.05 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                              className="hidden lg:flex lg:w-[180px] xl:w-[240px] 2xl:w-[280px] lg:h-[120px] xl:h-[160px] 2xl:h-[180px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
-                            >
-                              <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover/item:scale-102 pointer-events-none select-none"
-                              />
-                            </motion.div>
-                          </>
-                        )}
+                            {/* Mobile-only Image (embedded at bottom of Card) */}
+                            {hasImage && (
+                              <div className="lg:hidden mt-5 w-full rounded-xl border border-white/5 overflow-hidden bg-zinc-950">
+                                <img src={item.image} alt={item.title} className="w-full h-auto object-cover max-h-[220px]" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Right-pointing connector and Right Image - Desktop only (Pola 1) */}
+                          {isImageRight && (
+                            <>
+                              <div className="hidden lg:flex items-center justify-center flex-grow min-w-[24px] lg:max-w-[20px] xl:max-w-[40px] 2xl:max-w-[60px] text-primary/40">
+                                <motion.div
+                                  initial={{ scaleX: 0 }}
+                                  whileInView={{ scaleX: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 0.6, ease: "easeOut" }}
+                                  style={{ originX: 0 }}
+                                  className="h-[1px] border-t border-dashed border-primary/30 flex-grow"
+                                />
+                                <motion.div
+                                  initial={{ opacity: 0, x: -5 }}
+                                  whileInView={{ opacity: 1, x: 0 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: 0.4, duration: 0.3 }}
+                                  className="shrink-0 -ml-1 flex items-center"
+                                >
+                                  <ArrowRight className="w-3.5 h-3.5" />
+                                </motion.div>
+                              </div>
+
+                              <motion.div
+                                initial={{ opacity: 0, scale: 1.05 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                className="hidden lg:flex lg:w-[150px] xl:w-[200px] 2xl:w-[240px] lg:h-[100px] xl:h-[133px] 2xl:h-[160px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
+                              >
+                                <img
+                                  src={item.image}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover transition-transform duration-700 group-hover/item:scale-102 pointer-events-none select-none"
+                                />
+                              </motion.div>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
