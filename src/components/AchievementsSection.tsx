@@ -96,7 +96,7 @@ export function AchievementsSection() {
         ))}
       </div>
 
-      <div className="max-w-2xl lg:max-w-6xl mx-auto relative z-10 px-0 lg:px-8">
+      <div className="max-w-2xl lg:max-w-[860px] xl:max-w-[1060px] 2xl:max-w-6xl mx-auto relative z-10 px-0 lg:px-8">
         <motion.div layout className="space-y-0">
           <AnimatePresence initial={false}>
             {visibleItems.map((item) => {
@@ -117,14 +117,14 @@ export function AchievementsSection() {
                 >
                   <div className="relative flex flex-col lg:flex-row gap-0 group/item">
                     {/* Left Side Column - Desktop only (Image on Left in Pola 2) */}
-                    <div className="hidden lg:flex lg:w-[280px] lg:shrink-0 justify-end pt-[54px] relative">
+                    <div className="hidden lg:flex lg:w-[180px] xl:w-[240px] 2xl:w-[280px] lg:shrink-0 justify-end pt-[54px] relative">
                       {isImageLeft && (
                         <motion.div
                           initial={{ opacity: 0, scale: 1.05 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                          className="w-[280px] h-[180px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
+                          className="lg:w-[180px] xl:w-[240px] 2xl:w-[280px] lg:h-[120px] xl:h-[160px] 2xl:h-[180px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
                         >
                           <img
                             src={item.image}
@@ -136,7 +136,7 @@ export function AchievementsSection() {
                     </div>
 
                     {/* Middle Column - Line & Icon (responsive width) */}
-                    <div className="flex flex-col items-center shrink-0 w-9 lg:w-[80px] pt-1 relative">
+                    <div className="flex flex-col items-center shrink-0 w-9 lg:w-[50px] xl:w-[70px] 2xl:w-[80px] pt-1 relative">
                       <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0 z-10">
                         {item.category === "achievement" ? (
                           <Trophy className="w-3.5 h-3.5" />
@@ -150,24 +150,24 @@ export function AchievementsSection() {
                       
                       {/* Left-pointing dashed connector (Desktop only, Pola 2) */}
                       {isImageLeft && (
-                        <div className="hidden lg:flex absolute left-0 right-0 h-[1px] top-[144px] z-0 items-center justify-start text-primary/40 pointer-events-none">
+                        <div className="hidden lg:flex absolute left-0 right-0 h-4 lg:top-[106px] xl:top-[126px] 2xl:top-[136px] z-0 items-center justify-start text-primary/40 pointer-events-none">
                           <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: "100%" }}
+                            initial={{ opacity: 0, x: 5 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4, duration: 0.3 }}
+                            className="shrink-0 -mr-1 flex items-center z-10"
+                          >
+                            <ArrowLeft className="w-3.5 h-3.5" />
+                          </motion.div>
+                          <motion.div
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, ease: "easeOut" }}
-                            className="h-[1px] w-full border-t border-dashed border-primary/30 relative flex items-center justify-start"
-                          >
-                            <motion.span
-                              initial={{ opacity: 0, x: 5 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: 0.4, duration: 0.3 }}
-                              className="absolute left-0 -mt-[17px]"
-                            >
-                              <ArrowLeft className="w-3.5 h-3.5" />
-                            </motion.span>
-                          </motion.div>
+                            style={{ originX: 1 }}
+                            className="h-[1px] border-t border-dashed border-primary/30 flex-grow"
+                          />
                         </div>
                       )}
                     </div>
@@ -191,9 +191,9 @@ export function AchievementsSection() {
                       </div>
 
                       {/* Card & Image Container */}
-                      <div className="flex flex-col lg:flex-row lg:items-center lg:gap-8 w-full mt-2 lg:mt-0">
+                      <div className="flex flex-col lg:flex-row lg:items-center lg:gap-4 xl:gap-6 2xl:gap-8 w-full mt-2 lg:mt-0">
                         {/* Card */}
-                        <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300 w-full lg:w-[480px] lg:shrink-0 relative z-10">
+                        <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300 w-full lg:w-[360px] xl:w-[440px] 2xl:w-[480px] lg:shrink-0 relative z-10">
                           <h4 className="text-base sm:text-lg font-normal text-[#E1E0CC] mb-2">{item.title}</h4>
                           <p className="text-xs text-gray-400 font-light leading-relaxed mb-5">{item.description}</p>
                           
@@ -201,7 +201,7 @@ export function AchievementsSection() {
                             <ul className="space-y-2">
                               {item.details.map((detail, dIdx) => (
                                 <li key={dIdx} className="flex items-start gap-2.5">
-                                  <Pin className="w-3 h-3 text-primary/40 shrink-0 mt-0.5" />
+                                  <Pin className="w-3.5 h-3.5 text-primary/40 shrink-0 mt-0.5" />
                                   <span className="text-[11px] text-gray-500 font-light leading-normal">{detail}</span>
                                 </li>
                               ))}
@@ -219,23 +219,23 @@ export function AchievementsSection() {
                         {/* Right-pointing connector and Right Image - Desktop only (Pola 1) */}
                         {isImageRight && (
                           <>
-                            <div className="hidden lg:flex items-center justify-center flex-grow min-w-[32px] max-w-[80px] text-primary/40">
+                            <div className="hidden lg:flex items-center justify-center flex-grow min-w-[24px] lg:max-w-[30px] xl:max-w-[60px] 2xl:max-w-[80px] text-primary/40">
                               <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: "100%" }}
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, ease: "easeOut" }}
-                                className="h-[1px] w-full border-t border-dashed border-primary/30 relative flex items-center justify-end"
+                                style={{ originX: 0 }}
+                                className="h-[1px] border-t border-dashed border-primary/30 flex-grow"
+                              />
+                              <motion.div
+                                initial={{ opacity: 0, x: -5 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.4, duration: 0.3 }}
+                                className="shrink-0 -ml-1 flex items-center"
                               >
-                                <motion.span
-                                  initial={{ opacity: 0, x: -5 }}
-                                  whileInView={{ opacity: 1, x: 0 }}
-                                  viewport={{ once: true }}
-                                  transition={{ delay: 0.4, duration: 0.3 }}
-                                  className="absolute right-0 -mt-[17px]"
-                                >
-                                  <ArrowRight className="w-3.5 h-3.5" />
-                                </motion.span>
+                                <ArrowRight className="w-3.5 h-3.5" />
                               </motion.div>
                             </div>
 
@@ -244,7 +244,7 @@ export function AchievementsSection() {
                               whileInView={{ opacity: 1, scale: 1 }}
                               viewport={{ once: true }}
                               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                              className="hidden lg:flex w-[280px] h-[180px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
+                              className="hidden lg:flex lg:w-[180px] xl:w-[240px] 2xl:w-[280px] lg:h-[120px] xl:h-[160px] 2xl:h-[180px] shrink-0 rounded-2xl border border-white/5 overflow-hidden relative bg-zinc-950 group-hover/item:border-primary/20 transition-all duration-300"
                             >
                               <img
                                 src={item.image}
