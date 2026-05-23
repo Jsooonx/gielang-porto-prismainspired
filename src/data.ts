@@ -10,6 +10,7 @@ export const projectsData: ProjectItem[] = [
     githubLink: "https://github.com/Jsooonx/pulse-financialtracker",
     demoLink: "https://pulse-financialtracker.vercel.app/",
     image: "/images/pulse.png",
+    featured: true,
     details: [
       "Built with Flask, SQLite, and Supabase for secure data storage and multi-currency support.",
       "Integrated Telegram OAuth and Telegram Bot for convenient expense logging and instant alerts.",
@@ -24,6 +25,7 @@ export const projectsData: ProjectItem[] = [
     techStack: ["Python", "Backtracking", "Constraint Programming", "Heuristics"],
     githubLink: "https://github.com/Jsooonx/timetable-solver",
     image: "/images/timetable_solver.png",
+    featured: true,
     details: [
       "Implemented recursive backtracking with MRV-inspired (Minimum Remaining Values) heuristic search.",
       "Ensures 100% conflict-free schedules based on teacher availability, rooms, and group constraints.",
@@ -38,6 +40,7 @@ export const projectsData: ProjectItem[] = [
     techStack: ["Python", "Algorithms", "Backtracking", "Heuristics"],
     githubLink: "https://github.com/Jsooonx/sudoku-solver-python",
     image: "/images/sudoku_solver.png",
+    featured: true,
     details: [
       "Utilized recursive backtracking search with constraint validation.",
       "Implemented the MRV (Minimum Remaining Value) heuristic to prioritize cell choices.",
@@ -52,6 +55,7 @@ export const projectsData: ProjectItem[] = [
     techStack: ["Python", "Algorithms", "Pygame", "Graph Theory"],
     githubLink: "https://github.com/Jsooonx/pathfinding-algorithm-visualizer-python",
     image: "/images/pathfinding_visualizer_new.png",
+    featured: true,
     details: [
       "Implemented Depth-First Search (DFS), Breadth-First Search (BFS), and A* Search algorithms.",
       "Used Manhattan distance heuristic for A* to guarantee shortest path detection.",
@@ -67,6 +71,7 @@ export const projectsData: ProjectItem[] = [
     githubLink: "https://github.com/Jsooonx/f12025-dashboard",
     demoLink: "https://jsooonx.pythonanywhere.com/",
     image: "/images/f12025-dashboard.png",
+    featured: true,
     details: [
       "Aggregated live race statistics and driver standings via the Jolpica F1 API.",
       "Built dynamic tabbed navigation and responsive layouts with Flask and Vanilla JS.",
@@ -82,10 +87,88 @@ export const projectsData: ProjectItem[] = [
     githubLink: "https://github.com/Jsooonx/image-palette-extractor",
     demoLink: "https://jsooonx.github.io/image-palette-extractor/",
     image: "/images/palette_extractor_new.png",
+    featured: true,
     details: [
       "Performs local, in-browser RGB pixel analysis to avoid server roundtrips.",
       "Generates highly accurate, cohesive color palettes ranging from 4 to 16 colors.",
       "Allows instant copying of HEX/RGB color codes via an interactive DOM interface."
+    ]
+  },
+  {
+    id: "crypto-anomaly-detector",
+    title: "Crypto Anomaly Detector",
+    description: "An ensemble machine learning pipeline designed to automatically detect technical anomalies in cryptocurrency markets.",
+    category: "python",
+    techStack: ["Python", "Machine Learning", "scikit-learn", "Technical Analysis"],
+    githubLink: "https://github.com/Jsooonx/crypto-anomalies-detector",
+    demoLink: "https://crypto-anomalies-detector.vercel.app/",
+    image: "/images/crypto_anomaly_detector.png",
+    featured: false,
+    details: [
+      "Engineered an ML pipeline using Isolation Forest and Local Outlier Factor (LOF).",
+      "Analyzed 16 technical indicators in real-time to identify unusual market behaviors.",
+      "Integrated a live dashboard displaying anomalies with low false-positive rates."
+    ]
+  },
+  {
+    id: "trace",
+    title: "Trace",
+    description: "An editorial content journal and digital archive featuring AI summarization and relational tag visualizations.",
+    category: "flask-web",
+    techStack: ["Flask", "SQLite", "Google Gemini AI", "D3.js"],
+    githubLink: "https://github.com/Jsooonx/trace-log",
+    image: "/images/trace_log.png",
+    featured: false,
+    details: [
+      "Developed with Flask and SQLite FTS5 for quick and comprehensive full-text search.",
+      "Integrated Google Gemini AI for automated metadata generation and journal summarization.",
+      "Built an interactive relational tag graph visualization using D3.js."
+    ]
+  },
+  {
+    id: "taste-match",
+    title: "Taste Match",
+    description: "A transparent recommendation engine mapping cross-media preferences via tag-vector similarity.",
+    category: "python",
+    techStack: ["Python", "Pandas", "scikit-learn", "Flask"],
+    githubLink: "https://github.com/Jsooonx",
+    image: "/images/taste_match.png",
+    featured: false,
+    details: [
+      "Calculated preference similarities using Cosine Similarity via scikit-learn.",
+      "Processed and structured media taste profiles using Pandas and NumPy.",
+      "Shows exact matching tags for recommendations to ensure algorithmic transparency."
+    ]
+  },
+  {
+    id: "city-weather-app",
+    title: "City Weather App",
+    description: "A minimal, ad-free weather dashboard displaying real-time atmospheric data with clean, fast search.",
+    category: "flask-web",
+    techStack: ["JavaScript", "REST API", "HTML/CSS", "OpenWeatherMap"],
+    githubLink: "https://github.com/Jsooonx/city-weather-webapp",
+    demoLink: "https://jsooonx.github.io/city-weather-webapp/",
+    image: "/images/city_weather_app.png",
+    featured: false,
+    details: [
+      "Connected to OpenWeatherMap API for live temperature, humidity, and condition data.",
+      "Built with pure JavaScript for zero-dependency speed and low client overhead.",
+      "Designed with a responsive and clean layout avoiding ads or excess bloat."
+    ]
+  },
+  {
+    id: "habit-tracker-cli",
+    title: "Habit Tracker CLI",
+    description: "A modular command-line interface application designed for consistent daily habit tracking and streak analysis.",
+    category: "python",
+    techStack: ["Python", "CLI", "JSON Storage", "Data Persistence"],
+    githubLink: "https://github.com/Jsooonx/habit-tracker-cli-python",
+    image: "/images/habit_tracker.png",
+    featured: false,
+    details: [
+      "Persisted habit checklists using locally saved structured JSON databases.",
+      "Analyzed checking consistency to calculate streak records and consistency percentages.",
+      "Supports CSV exports and automated daily reminder alerts in the terminal."
     ]
   },
   {
@@ -96,10 +179,27 @@ export const projectsData: ProjectItem[] = [
     techStack: ["C", "Game Logic", "2D Arrays", "Modular Design"],
     githubLink: "https://github.com/Jsooonx/tic-tac-toe-c-engine",
     image: "/images/tictactoe.png",
+    featured: false,
     details: [
       "Built with a modular function architecture and 2D array board state representation.",
       "Supports both player-vs-player (PvP) and player-vs-computer (PvE) configurations.",
       "Designed with reusable C logic easily compileable and integrateable into larger games."
+    ]
+  },
+  {
+    id: "odin-recipes",
+    title: "Odin Recipes",
+    description: "A clean, multi-page recipes directory showcasing responsive layouts and semantic document structures.",
+    category: "flask-web",
+    techStack: ["HTML", "CSS", "Responsive Design", "Semantic Markup"],
+    githubLink: "https://github.com/Jsooonx/Odin-recipes-refactor",
+    demoLink: "https://jsooonx.github.io/Odin-recipes-refactor/",
+    image: "/images/odin_recipes.png",
+    featured: false,
+    details: [
+      "Constructed using semantic HTML5 to optimize SEO and accessibility.",
+      "Designed a responsive fluid layout with pure Vanilla CSS.",
+      "Organized structured recipes with navigation menus across pages."
     ]
   }
 ];

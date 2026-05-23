@@ -13,6 +13,7 @@ export interface ProjectItem {
   demoLink?: string;
   details?: string[];
   image?: string;
+  featured: boolean;
 }
 
 export interface Achievement {

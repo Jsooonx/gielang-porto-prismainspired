@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { motion, useInView } from "motion/react";
-import { Check, Github, ExternalLink, Code } from "lucide-react";
+import { motion, useInView, AnimatePresence } from "motion/react";
+import { Check, Github, ExternalLink, Code, ChevronDown, ChevronUp } from "lucide-react";
 import { projectsData } from "../data";
 import { ProjectItem } from "../types";
 
@@ -159,6 +159,7 @@ function ProjectCard({ project }: { project: ProjectItem; key?: string }) {
 
 export function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'python' | 'flask-web' | 'c-cpp'>('all');
+  const [showArchived, setShowArchived] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
@@ -168,6 +169,13 @@ export function ProjectsSection() {
     { label: "Flask & Web", value: "flask-web" as const },
     { label: "C / C++ & Systems", value: "c-cpp" as const },
   ];
+
+  const filteredProjects = projectsData.filter(
+    (project) => activeFilter === 'all' || project.category === activeFilter
+  );
+  
+  const featuredProjects = filteredProjects.filter((p) => p.featured);
+  const archivedProjects = filteredProjects.filter((p) => !p.featured);
 
   return (
     <section
@@ -247,12 +255,45 @@ export function ProjectsSection() {
           </motion.div>
         )}
 
-        {projectsData
-          .filter((project) => activeFilter === 'all' || project.category === activeFilter)
-          .map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+        {featuredProjects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
       </motion.div>
+
+      <AnimatePresence initial={false}>
+        {showArchived && archivedProjects.length > 0 && (
+          <motion.div
+            key="archived-projects-container"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden w-full relative z-10"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto w-full mt-6">
+              {archivedProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {archivedProjects.length > 0 && (
+        <div className="flex justify-center mt-12 relative z-20">
+          <button
+            onClick={() => setShowArchived(!showArchived)}
+            className="flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-wider font-semibold rounded-full border border-white/10 text-primary/70 hover:border-white/30 hover:text-primary bg-zinc-950/40 transition-all duration-200 cursor-pointer"
+          >
+            {showArchived ? "Show Less" : "Show More Projects"}
+            {showArchived ? (
+              <ChevronUp className="w-4 h-4 transition-transform duration-200" />
+            ) : (
+              <ChevronDown className="w-4 h-4 transition-transform duration-200" />
+            )}
+          </button>
+        </div>
+      )}
     </section>
   );
 }
