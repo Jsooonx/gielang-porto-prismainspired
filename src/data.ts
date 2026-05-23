@@ -195,7 +195,7 @@ export const achievementsData: Achievement[] = [
     title: "CS50: Introduction to Computer Science",
     role: "Harvard University (via edX)",
     description: "Completed the full CS50 course content covering algorithms, memory, data structures, SQL, web development, Flask, and AJAX.",
-    category: "activity",
+    category: "education",
     details: [
       "Solved 17+ problem sets using C, Python, SQL, HTML, CSS, and JavaScript.",
       "Practiced problem solving on HackerRank, earning 5★ in Python, 4★ in C++, and 3★ in C.",
@@ -208,7 +208,7 @@ export const achievementsData: Achievement[] = [
     title: "Senior High School Diploma",
     role: "State Senior High School 2 Surabaya (SMAN 2 Surabaya), Indonesia",
     description: "Science Track (Advanced Mathematics & Physics). Graduated with GPA 93.5/100 (EQF level 4).",
-    category: "activity",
+    category: "education",
     details: [
       "Relevant Coursework: Advanced Mathematics, Physics."
     ]

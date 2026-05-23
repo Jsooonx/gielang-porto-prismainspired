@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
-import { Trophy, Sparkles, Pin } from "lucide-react";
+import { Trophy, Sparkles, Pin, GraduationCap } from "lucide-react";
 import { achievementsData } from "../data";
 
 const containerVariants = {
@@ -37,14 +37,15 @@ const childVariants = {
 };
 
 export function AchievementsSection() {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'achievement' | 'activity'>('all');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'achievement' | 'activity' | 'education'>('all');
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   const filterOptions = [
     { label: "All Timeline", value: "all" as const },
     { label: "Achievements", value: "achievement" as const },
-    { label: "Activities & Education", value: "activity" as const },
+    { label: "Activities", value: "activity" as const },
+    { label: "Education", value: "education" as const },
   ];
 
   return (
@@ -109,6 +110,8 @@ export function AchievementsSection() {
                   <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0">
                     {item.category === "achievement" ? (
                       <Trophy className="w-3.5 h-3.5" />
+                    ) : item.category === "education" ? (
+                      <GraduationCap className="w-3.5 h-3.5" />
                     ) : (
                       <Sparkles className="w-3.5 h-3.5" />
                     )}
