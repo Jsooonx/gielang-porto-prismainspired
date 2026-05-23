@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect, type ReactNode } from "react";
-import { motion, AnimatePresence, useInView } from "motion/react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "motion/react";
 import { Trophy, Sparkles, Pin } from "lucide-react";
 import { achievementsData } from "../data";
 
@@ -15,7 +15,7 @@ const containerVariants = {
     filter: "blur(0px)",
     transition: {
       duration: 0.9,
-      ease: [0.16, 1, 0.3, 1], // Premium cinematic ease
+      ease: [0.16, 1, 0.3, 1],
       staggerChildren: 0.15,
     }
   }
@@ -36,53 +36,10 @@ const childVariants = {
   }
 };
 
-/* Per-item scroll animation wrapper — used inline in map, no key needed here */
-function ScrollReveal({
-  children,
-  index,
-  hasRevealed,
-}: {
-  children: ReactNode;
-  index: number;
-  hasRevealed: boolean;
-  key?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div
-      ref={ref}
-      layout
-      initial={hasRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-      animate={hasRevealed ? { opacity: 1, y: 0 } : (isInView ? { opacity: 1, y: 0 } : {})}
-      exit={{ opacity: 0 }}
-      transition={hasRevealed 
-        ? { duration: 0.2, ease: "easeOut" } 
-        : { duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }
-      }
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export function AchievementsSection() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'achievement' | 'activity'>('all');
-  const [hasRevealed, setHasRevealed] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
-
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const timelineInView = useInView(timelineRef, { once: true, margin: "-100px" });
-
-  useEffect(() => {
-    if (timelineInView) {
-      const timer = setTimeout(() => {
-        setHasRevealed(true);
-      }, 1000); // Disable entry animations after initial reveal
-      return () => clearTimeout(timer);
-    }
-  }, [timelineInView]);
 
   const filterOptions = [
     { label: "All Timeline", value: "all" as const },
@@ -90,17 +47,13 @@ export function AchievementsSection() {
     { label: "Activities & Education", value: "activity" as const },
   ];
 
-  const filteredAchievements = achievementsData.filter(item =>
-    activeFilter === 'all' ? true : item.category === activeFilter
-  );
-
   return (
     <section id="achievements" className="relative bg-black py-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden">
       {/* Decorative glows */}
       <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Heading card — same dark card style as projects */}
+      {/* Heading card */}
       <div ref={headerRef} className="max-w-4xl mx-auto mb-16 relative z-10 w-full">
         <motion.div
           variants={containerVariants}
@@ -140,11 +93,21 @@ export function AchievementsSection() {
         ))}
       </div>
 
-      {/* Timeline — fully inlined in map, key on the wrapping div */}
-      <div ref={timelineRef} className="max-w-2xl mx-auto relative z-10">
-        <AnimatePresence initial={false}>
-          {filteredAchievements.map((item, index) => (
-            <ScrollReveal key={item.id} index={index} hasRevealed={hasRevealed}>
+      {/* Timeline — all items always rendered, hidden items collapse smoothly */}
+      <div className="max-w-2xl mx-auto relative z-10">
+        {achievementsData.map((item) => {
+          const isVisible = activeFilter === 'all' || item.category === activeFilter;
+
+          return (
+            <div
+              key={item.id}
+              style={{
+                maxHeight: isVisible ? "1000px" : "0px",
+                opacity: isVisible ? 1 : 0,
+                overflow: "hidden",
+                transition: "max-height 0.4s ease, opacity 0.3s ease",
+              }}
+            >
               <div className="relative flex gap-8 sm:gap-12">
                 {/* Left: icon + vertical line */}
                 <div className="flex flex-col items-center shrink-0 pt-1">
@@ -190,9 +153,9 @@ export function AchievementsSection() {
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
-          ))}
-        </AnimatePresence>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
