@@ -88,29 +88,55 @@ export const achievementsData: Achievement[] = [
     ]
   },
   {
-    id: "robotic-championship-2018",
-    year: "2018",
-    title: "National Robotics Championship",
-    role: "Lead Systems Programmer",
-    description: "Successfully defended the national title, designing a fully autonomous navigation bot using C/C++ on microcontroller boards.",
-    category: "achievement",
+    id: "musical-drama-2024",
+    year: "2024",
+    title: "Musical Drama Production",
+    role: "Property Staff & Supporting Actor (Surabaya, Indonesia)",
+    description: "Contributed as property staff and supporting actor in a school-wide musical drama production involving 50+ participants.",
+    category: "activity",
     details: [
-      "Built an autonomous line-follower and maze-solving robot chassis.",
-      "Optimized infrared sensor reading filters and PID motor controller algorithms.",
-      "Won 1st place in the senior high school category."
+      "Supported rehearsal coordination and live performance execution in a school-wide drama competition."
     ]
   },
   {
-    id: "robotic-championship-2017",
-    year: "2017",
-    title: "National Robotics Championship",
-    role: "Hardware Integrator & Programmer",
-    description: "Won the first national robotics championship gold medal, constructing a high-speed line tracker bot.",
+    id: "kopikat-finance",
+    year: "09/2022 - 01/2023",
+    title: "Finance Staff",
+    role: "Student Company \"KOPIKAT\" (Surabaya, Indonesia)",
+    description: "Managed budgeting, transaction tracking, and financial documentation using Excel throughout a semester-long student enterprise.",
+    category: "activity",
+    details: [
+      "Maintained organized revenue and expense records to support daily operations and financial accountability."
+    ]
+  },
+  {
+    id: "kopikat-volunteer",
+    year: "11/2022",
+    title: "Community Service - \"KOPIKAT\" CSR Initiative",
+    role: "Surabaya, Indonesia",
+    description: "Contributed to the closing CSR initiative of Student Company \"KOPIKAT\" by teaching mathematics to children in the local community.",
+    category: "activity",
+    details: [
+      "Supported the outreach program through direct tutoring and aid distribution activities."
+    ]
+  },
+  {
+    id: "pens-robotics-2018",
+    year: "03/2018",
+    title: "1st Place - Robot Transporter Category",
+    role: "Java Robot Contest IX - State Polytechnic of Electronics Surabaya (PENS)",
+    description: "Ranked 1st in a national robotics competition involving 150+ participants across elementary to university categories.",
     category: "achievement",
     details: [
-      "Designed a custom dual-motor chassis with integrated sensors.",
-      "Programmed the control unit in C with real-time interrupt logic.",
-      "Secured 1st place among top national student teams."
+      "Awarded Best Time for Mission Completion for achieving the fastest execution in the category."
     ]
+  },
+  {
+    id: "unesa-robotics-2017",
+    year: "10/2017",
+    title: "1st Place - Beginner Robot Transporter Category",
+    role: "LKT UNESA 2017 - State University of Surabaya (UNESA)",
+    description: "Ranked 1st among ~30 participants in a competitive beginner robotics challenge.",
+    category: "achievement"
   }
 ];
