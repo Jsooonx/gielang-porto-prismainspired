@@ -220,6 +220,7 @@ export const achievementsData: Achievement[] = [
     role: "Property Staff & Supporting Actor (Surabaya, Indonesia)",
     description: "Contributed as property staff and supporting actor in a school-wide musical drama production involving 50+ participants.",
     category: "activity",
+    image: "/images/Volun-Properti-Dramus.jpeg",
     details: [
       "Supported rehearsal coordination and live performance execution in a school-wide drama competition."
     ]
@@ -231,6 +232,7 @@ export const achievementsData: Achievement[] = [
     role: "Student Company \"KOPIKAT\" (Surabaya, Indonesia)",
     description: "Managed budgeting, transaction tracking, and financial documentation using Excel throughout a semester-long student enterprise.",
     category: "activity",
+    image: "/images/Volun-Finance-Kopikat.jpeg",
     details: [
       "Maintained organized revenue and expense records to support daily operations and financial accountability."
     ]
@@ -253,6 +255,7 @@ export const achievementsData: Achievement[] = [
     role: "Java Robot Contest IX - State Polytechnic of Electronics Surabaya (PENS)",
     description: "Ranked 1st in a national robotics competition involving 150+ participants across elementary to university categories.",
     category: "achievement",
+    image: "/images/JRC-IX-Awarding-Photo.png",
     details: [
       "Awarded Best Time for Mission Completion for achieving the fastest execution in the category."
     ]
@@ -263,6 +266,7 @@ export const achievementsData: Achievement[] = [
     title: "1st Place - Beginner Robot Transporter Category",
     role: "LKT UNESA 2017 - State University of Surabaya (UNESA)",
     description: "Ranked 1st among ~30 participants in a competitive beginner robotics challenge.",
-    category: "achievement"
+    category: "achievement",
+    image: "/images/LKT-2017.png"
   }
 ];

@@ -24,4 +24,5 @@ export interface Achievement {
   description: string;
   details?: string[];
   category: 'achievement' | 'activity' | 'education';
+  image?: string;
 }
