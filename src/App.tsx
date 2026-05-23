@@ -14,10 +14,10 @@ export default function App() {
   useEffect(() => {
     // Initialize Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 1.8, // Heavy/buttery feel (longer duration = weightier, more inertia)
+      duration: 1.2, // Faster, more responsive scroll (closer to default, less sluggish)
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Silky smooth exponential ease-out
-      wheelMultiplier: 0.75, // Lower multiplier = more scroll resistance / heavier feel
-      syncTouch: true, // Apply smoothing to touch/trackpad events as well
+      wheelMultiplier: 1.0, // Standard multiplier for responsive scroll distance
+      syncTouch: false, // Disable touch/trackpad sync to let OS handle high-refresh inertial scroll natively (prevents stuttering)
     });
 
     // Custom animation frame loop for Lenis
