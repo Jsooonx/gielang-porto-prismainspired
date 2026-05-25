@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import { WordsPullUp } from "./WordsPullUp";
 
 interface NavItem {
@@ -36,6 +36,19 @@ export function HeroSection() {
       transition: {
         duration: 1.0,
         delay: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
+
+  const socialVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 1.0,
+        delay: 0.9,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -118,6 +131,52 @@ export function HeroSection() {
 
           </div>
         </div>
+
+        {/* Profile Links */}
+        <motion.div
+          variants={socialVariants}
+          initial="hidden"
+          animate="visible"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 lg:left-12 lg:translate-x-0 z-30 flex items-center justify-center lg:justify-start gap-3 flex-wrap w-[calc(100%-3rem)] lg:w-auto"
+        >
+          <a
+            href="https://github.com/Jsooonx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-zinc-950/40 text-primary/70 hover:border-primary/30 hover:text-primary transition-all duration-300 hover:-translate-y-0.5 font-mono text-[9px] tracking-widest font-semibold uppercase"
+          >
+            <Github className="w-3.5 h-3.5" />
+            <span>GitHub</span>
+          </a>
+
+          <a
+            href="https://leetcode.com/u/jsooonx/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-zinc-950/40 text-primary/70 hover:border-primary/30 hover:text-primary transition-all duration-300 hover:-translate-y-0.5 font-mono text-[9px] tracking-widest font-semibold uppercase"
+          >
+            <img 
+              src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/1200/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.jpg" 
+              alt="LeetCode" 
+              className="w-3.5 h-3.5 object-contain rounded-sm"
+            />
+            <span>LeetCode</span>
+          </a>
+
+          <a
+            href="https://www.hackerrank.com/profile/elangacount15"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-zinc-950/40 text-primary/70 hover:border-primary/30 hover:text-primary transition-all duration-300 hover:-translate-y-0.5 font-mono text-[9px] tracking-widest font-semibold uppercase"
+          >
+            <img 
+              src="https://cdn.iconscout.com/icon/free/png-256/free-hackerrank-logo-icon-svg-download-png-3030100.png" 
+              alt="HackerRank" 
+              className="w-3.5 h-3.5 object-contain"
+            />
+            <span>HackerRank</span>
+          </a>
+        </motion.div>
 
       </div>
     </section>

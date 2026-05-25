@@ -185,8 +185,24 @@ export const projectsData: ProjectItem[] = [
       "Supports both player-vs-player (PvP) and player-vs-computer (PvE) configurations.",
       "Designed with reusable C logic easily compileable and integrateable into larger games."
     ]
+  },
+  {
+    id: "mediapipe-handcontrol",
+    title: "MediaPipe Hand Control",
+    description: "An intuitive, touchless computer vision controller for Windows using MediaPipe Hands and OpenCV to adjust system volume, screen brightness, and perform app switching using real-time hand gestures.",
+    category: "python",
+    techStack: ["Python", "MediaPipe", "OpenCV", "PyCaw", "Windows API"],
+    githubLink: "https://github.com/Jsooonx/mediapipe-handcontrol",
+    image: "/images/mediapipe.png",
+    featured: true,
+    details: [
+      "Built with Python, OpenCV, and MediaPipe Hands for rotation-invariant, high-precision gesture classification.",
+      "Integrated PyCaw and Screen-Brightness-Control for seamless, native Windows volume and brightness modulation.",
+      "Features dynamic anchor joystick controls for Alt+Tab app switching alongside stability locks and rollback protection."
+    ]
   }
 ];
+
 
 export const achievementsData: Achievement[] = [
   {
