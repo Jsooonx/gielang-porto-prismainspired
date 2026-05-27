@@ -146,27 +146,27 @@ export default function App() {
   return (
     <div className="bg-[#050505] text-[#E1E0CC] selection:bg-primary selection:text-black min-h-screen font-sans overflow-x-hidden relative">
       <div className="w-full bg-black origin-center overflow-hidden">
-        {currentView === 'main' ? (
-          <>
-            <HeroSection />
-            <AboutSection />
-            <ProjectsSection onViewArchive={() => {
-              if (pageTransitionRef.current) {
-                setIsTransitionActive(true);
-                pageTransitionRef.current.trigger(() => {
-                  setCurrentView('archive');
-                  window.scrollTo(0, 0);
-                }).then(() => {
-                  setIsTransitionActive(false);
-                });
-              } else {
+        <div style={{ display: currentView === 'main' ? 'block' : 'none' }}>
+          <HeroSection />
+          <AboutSection />
+          <ProjectsSection onViewArchive={() => {
+            if (pageTransitionRef.current) {
+              setIsTransitionActive(true);
+              pageTransitionRef.current.trigger(() => {
                 setCurrentView('archive');
                 window.scrollTo(0, 0);
-              }
-            }} />
-            <AchievementsSection />
-          </>
-        ) : (
+              }).then(() => {
+                setIsTransitionActive(false);
+              });
+            } else {
+              setCurrentView('archive');
+              window.scrollTo(0, 0);
+            }
+          }} />
+          <AchievementsSection />
+        </div>
+
+        {currentView === 'archive' && (
           <ProjectsArchive onViewMain={() => {
             if (pageTransitionRef.current) {
               setIsTransitionActive(true);

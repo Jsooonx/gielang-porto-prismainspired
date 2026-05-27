@@ -4,12 +4,12 @@ import { TitleStaggerReveal } from "./TitleStaggerReveal";
 
 export function AboutSection() {
   const aboutSegments = [
-    { text: "I am Gielang, ", className: "font-normal text-[#E1E0CC]" },
-    { text: "an aspiring computer scientist. ", className: "font-serif italic text-primary" },
-    { text: "I design software solutions, analyze algorithms, and program autonomous robotics.", className: "font-normal text-[#E1E0CC]" },
+    { text: "I'am Gielang, ", className: "font-normal text-[#E1E0CC]" },
+    { text: "a CS and algorithms enthusiast. ", className: "font-serif italic text-primary" },
+    { text: "I design software solutions, analyze algorithms, and explore autonomous systems.", className: "font-normal text-[#E1E0CC]" },
   ];
 
-  const bodyText = "Driven by an early passion for technology, I spent my school years competing in national robotics competitions and learning programming independently. I am a high school graduate now looking to pursue a Bachelor's degree in Computer Science abroad with a scholarship, aiming to build systems that bridge physical electronics and digital intelligence.";
+  const bodyText = "Driven by an early passion for technology, I spent my school years competing in national robotics competitions and learning programming independently. As a fresh high school graduate, I'm applying to study Computer Science abroad, with a focus on algorithm design and building systems that solve real problems.";
 
   return (
     <section 

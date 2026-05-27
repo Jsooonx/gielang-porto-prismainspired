@@ -88,7 +88,7 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
         >
           {/* Top curve (visible during exit slide-down) */}
           <svg
-            className="absolute bottom-full left-0 w-full h-[12vh] fill-primary pointer-events-none"
+            className="absolute bottom-full left-0 w-full h-[12vh] translate-y-[2px] fill-primary pointer-events-none"
             viewBox="0 0 1440 100"
             preserveAspectRatio="none"
           >
@@ -97,7 +97,7 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
 
           {/* Bottom curve (visible during entrance slide-down) */}
           <svg
-            className="absolute top-full left-0 w-full h-[12vh] fill-primary pointer-events-none"
+            className="absolute top-full left-0 w-full h-[12vh] -translate-y-[2px] fill-primary pointer-events-none"
             viewBox="0 0 1440 100"
             preserveAspectRatio="none"
           >
