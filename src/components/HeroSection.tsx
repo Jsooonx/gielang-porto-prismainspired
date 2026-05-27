@@ -162,7 +162,7 @@ export function HeroSection() {
         
         <video
           ref={videoRef}
-          src="/bg.mp4"
+          src="/13510813_1920_1080_30fps.mp4"
           autoPlay
           loop
           muted
