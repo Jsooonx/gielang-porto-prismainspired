@@ -18,7 +18,6 @@ export function AboutSection() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(222,219,200,0.05)_0%,transparent_70%)] pointer-events-none select-none" />
 
-      {/* CENTER Content Card */}
       <div className="w-full max-w-6xl bg-[#101010] rounded-3xl p-8 sm:p-14 md:p-20 lg:p-24 flex flex-col items-center justify-center border border-white/5 relative overflow-hidden text-center shadow-3xl shadow-black z-20">
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" />
 
@@ -34,9 +33,7 @@ export function AboutSection() {
         <div className="max-w-2xl mx-auto border-t border-white/10 pt-10 sm:pt-12 w-full">
           <AboutTextReveal text={bodyText} className="text-primary/90 leading-relaxed font-light" />
         </div>
-
       </div>
-
     </section>
   );
 }

@@ -7,6 +7,7 @@ interface WordsPullUpMultiStyleProps {
   className?: string;
 }
 
+// Multi-style staggered text pull-up animation
 export function WordsPullUpMultiStyle({ segments, className = "" }: WordsPullUpMultiStyleProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });

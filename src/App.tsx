@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
-import { motion } from "motion/react";
 import { HeroSection } from "./components/HeroSection";
 import { AboutSection } from "./components/AboutSection";
 import { ProjectsSection } from "./components/ProjectsSection";
@@ -14,17 +13,17 @@ import { InitialPreloader } from "./components/InitialPreloader";
 
 export default function App() {
   const pageTransitionRef = useRef<PageTransitionRef>(null);
-  const [isTransitionActive, setIsTransitionActive] = useState(false);
+  const [, setIsTransitionActive] = useState(false);
   const [currentView, setCurrentView] = useState<'main' | 'archive'>('main');
   const [activeSection, setActiveSection] = useState<string>("#story");
   const [isPreloaded, setIsPreloaded] = useState(false);
 
+  // Handles page view changes and smooth scroll navigation with transition effect
   const handleNavigation = (targetId: string) => {
     if (targetId.startsWith("#")) {
       const targetElement = document.querySelector(targetId) as HTMLElement | null;
       
       if (currentView === 'archive') {
-        // Trigger curtain transition back to main view
         if (pageTransitionRef.current) {
           setIsTransitionActive(true);
           pageTransitionRef.current.trigger(() => {
@@ -48,14 +47,12 @@ export default function App() {
           }, 100);
         }
       } else {
-        // Already on main view, trigger the curtain page transition!
         if (targetElement && pageTransitionRef.current) {
-          setIsTransitionActive(true); // Trigger scale down
+          setIsTransitionActive(true);
           pageTransitionRef.current.trigger(() => {
-            // Scroll immediately while screen is covered by the curtain
             targetElement.scrollIntoView({ behavior: "auto" });
           }).then(() => {
-            setIsTransitionActive(false); // Restore normal scale
+            setIsTransitionActive(false);
           });
         } else if (targetElement) {
           targetElement.scrollIntoView({ behavior: "smooth" });
@@ -64,6 +61,7 @@ export default function App() {
     }
   };
 
+  // Lenis smooth scroll setup and anchor click handling
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -79,7 +77,6 @@ export default function App() {
     }
     rafId = requestAnimationFrame(raf);
 
-    // Smooth anchor scroll
     const handleAnchorClick = (e: MouseEvent) => {
       const targetEl = e.target as HTMLElement;
       const anchor = targetEl.closest("a");
@@ -90,14 +87,14 @@ export default function App() {
           const target = document.querySelector(href) as HTMLElement | null;
           if (target) {
             if (pageTransitionRef.current) {
-              setIsTransitionActive(true); // Trigger scale down
+              setIsTransitionActive(true);
               pageTransitionRef.current.trigger(() => {
                 lenis.scrollTo(target, {
                   offset: 0,
-                  immediate: true, // Jump immediately while screen is covered by transition
+                  immediate: true,
                 });
               }).then(() => {
-                setIsTransitionActive(false); // Restore normal scale
+                setIsTransitionActive(false);
               });
             } else {
               lenis.scrollTo(target, {
@@ -119,6 +116,7 @@ export default function App() {
     };
   }, []);
 
+  // Update active section highlight based on scroll position
   useEffect(() => {
     if (currentView !== 'main') return;
 

@@ -9,6 +9,7 @@ interface AnimatedLetterProps {
   scrollYProgress: MotionValue<number>;
 }
 
+// Letter opacity reveal on scroll
 function AnimatedLetter({ char, index, totalChars, scrollYProgress }: AnimatedLetterProps) {
   const charProgress = index / totalChars;
   const start = Math.max(0, charProgress - 0.1);
@@ -29,6 +30,7 @@ interface AboutTextRevealProps {
   className?: string;
 }
 
+// Paragraph content reveal on scroll
 export function AboutTextReveal({ text, className = "" }: AboutTextRevealProps) {
   const containerRef = useRef<HTMLParagraphElement>(null);
 
@@ -46,7 +48,7 @@ export function AboutTextReveal({ text, className = "" }: AboutTextRevealProps) 
     >
       {chars.map((char, index) => (
         <AnimatedLetter
-          key={idxKey(char, index)}
+          key={`${char}-${index}`}
           char={char}
           index={index}
           totalChars={chars.length}
@@ -55,8 +57,4 @@ export function AboutTextReveal({ text, className = "" }: AboutTextRevealProps) 
       ))}
     </p>
   );
-}
-
-function idxKey(char: string, index: number): string {
-  return `${char}-${index}`;
 }

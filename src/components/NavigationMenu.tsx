@@ -17,12 +17,12 @@ interface NavigationMenuProps {
   onNavigate: (target: string) => void;
 }
 
-// Letter roll-up transition details
 const transition = {
   duration: 0.35,
   ease: [0.76, 0, 0.24, 1],
 };
 
+// Text rollover hover transition component
 function RolloverText({ text, isHovered }: { text: string; isHovered: boolean }) {
   return (
     <span className="relative inline-flex whitespace-nowrap select-none pointer-events-none py-1">
@@ -35,7 +35,6 @@ function RolloverText({ text, isHovered }: { text: string; isHovered: boolean })
             className="relative inline-block overflow-hidden px-[0.15em] mx-[-0.15em] py-[0.25em]"
             style={{ verticalAlign: "bottom" }}
           >
-            {/* Top / Outgoing letter */}
             <motion.span
               className="inline-block"
               style={{
@@ -53,7 +52,6 @@ function RolloverText({ text, isHovered }: { text: string; isHovered: boolean })
               {char}
             </motion.span>
             
-            {/* Bottom / Incoming letter */}
             <motion.span
               className="absolute left-[0.15em] top-[0.25em] inline-block text-primary"
               style={{
@@ -77,6 +75,7 @@ function RolloverText({ text, isHovered }: { text: string; isHovered: boolean })
   );
 }
 
+// Overlay navigation menu with responsive preview grids
 export function NavigationMenu({ currentView, activeSection, onNavigate }: NavigationMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
@@ -197,7 +196,6 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
 
   return (
     <>
-      {/* Floating Morphing Hamburger Button */}
       <button
         onClick={toggleMenu}
         aria-label="Toggle Menu"
@@ -235,7 +233,6 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
         </svg>
       </button>
 
-      {/* Full-Screen Curved Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -251,11 +248,9 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
             }}
             className="fixed inset-0 z-[900] bg-[#0c0d0c] text-[#E1E0CC] flex flex-col md:grid md:grid-cols-[1.1fr_0.9fr] p-8 sm:p-12 md:p-24 overflow-y-auto"
           >
-            {/* Background noise & premium grid overlays */}
             <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(222,219,200,0.03)_0%,transparent_60%)] pointer-events-none" />
 
-            {/* Bottom curving SVG overlay for the organic transition look */}
             <svg
               className="absolute top-full left-0 w-full h-[12vh] fill-[#0c0d0c] pointer-events-none"
               viewBox="0 0 1440 100"
@@ -264,7 +259,6 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
               <path d="M0,0 L1440,0 Q720,100 0,0 Z" />
             </svg>
 
-            {/* Left Side: Staggered Image Grid (Desktop only) */}
             <div className="hidden md:grid grid-cols-2 gap-4 h-full items-center justify-center relative pr-8">
               {[0, 1, 2, 3].map((idx) => {
                 return (
@@ -274,7 +268,7 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
                     variants={imageCardVariants}
                     initial="closed"
                     animate="open"
-                    className={`relative rounded-2xl overflow-hidden border border-white/5 aspect-[4/3] bg-zinc-900/40 ${
+                    className={`relative rounded-2xl overflow-hidden border border-white/5 aspect-[4/3] bg-zinc-950/40 ${
                       idx === 1
                         ? "translate-y-8"
                         : idx === 2
@@ -287,7 +281,6 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
                       backfaceVisibility: "hidden",
                     }}
                   >
-                    {/* Render all section images stacked in this slot and fade them on hover */}
                     {Object.entries(sectionImages).map(([sectionKey, images]) => {
                       const img = images[idx];
                       if (!img) return null;
@@ -311,7 +304,6 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
               })}
             </div>
 
-            {/* Right Side: Gigantic Navigation Links */}
             <div className="flex flex-col justify-center h-full pl-0 md:pl-16 pt-16 md:pt-0 relative">
               <motion.nav
                 variants={contentVariants}
@@ -346,7 +338,6 @@ export function NavigationMenu({ currentView, activeSection, onNavigate }: Navig
                 })}
               </motion.nav>
 
-              {/* Menu Footer */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

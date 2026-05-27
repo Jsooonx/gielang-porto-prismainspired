@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowLeft, Code } from "lucide-react";
 import { projectsData } from "../data";
@@ -9,6 +9,7 @@ interface ProjectsArchiveProps {
   onViewMain: () => void;
 }
 
+// Complete archive view of all projects
 export function ProjectsArchive({ onViewMain }: ProjectsArchiveProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | 'python' | 'flask-web' | 'c-cpp'>('all');
 
@@ -27,7 +28,6 @@ export function ProjectsArchive({ onViewMain }: ProjectsArchiveProps) {
     <div className="relative min-h-screen bg-black pt-16 pb-32 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden">
       <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
 
-      {/* Back Button */}
       <div className="max-w-7xl mx-auto mb-12 relative z-20">
         <button
           onClick={onViewMain}
@@ -50,7 +50,6 @@ export function ProjectsArchive({ onViewMain }: ProjectsArchiveProps) {
         </p>
       </div>
 
-      {/* Filter Buttons */}
       <div className="flex flex-wrap items-center justify-center gap-2 mb-16 relative z-20 max-w-2xl mx-auto">
         {filterOptions.map((option) => (
           <button
@@ -67,7 +66,6 @@ export function ProjectsArchive({ onViewMain }: ProjectsArchiveProps) {
         ))}
       </div>
 
-      {/* Projects Grid */}
       <motion.div
         layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto w-full relative z-10"

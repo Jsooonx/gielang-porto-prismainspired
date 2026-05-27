@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { motion, useInView, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { Check, Github, ExternalLink, Code, ArrowRight } from "lucide-react";
 import { projectsData } from "../data";
 import { ProjectItem } from "../types";
@@ -38,6 +38,7 @@ const childVariants = {
   }
 };
 
+// Card displaying project details, supports rotation flip interaction
 export function ProjectCard({ project }: { project: ProjectItem; key?: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -55,7 +56,7 @@ export function ProjectCard({ project }: { project: ProjectItem; key?: string })
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
       >
-        {/* Front Side */}
+        {/* Front side of the card */}
         <div className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8 backface-hidden bg-[#121212] border border-white/5 group-hover:border-primary/20 hover:shadow-2xl hover:shadow-black transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <span className="text-[9px] font-mono text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
@@ -91,7 +92,7 @@ export function ProjectCard({ project }: { project: ProjectItem; key?: string })
           </div>
         </div>
 
-        {/* Back Side */}
+        {/* Back side of the card */}
         <div className="absolute inset-0 w-full h-full rounded-2xl p-6 sm:p-8 backface-hidden rotate-y-180 bg-[#121212] border border-white/5 flex flex-col justify-between hover:shadow-2xl hover:shadow-black transition-shadow duration-300">
           <div>
             <div className="flex items-center justify-between mb-5">
@@ -161,6 +162,7 @@ export function ProjectCard({ project }: { project: ProjectItem; key?: string })
   );
 }
 
+// Projects gallery with category filtering
 export function ProjectsSection({ onViewArchive }: { onViewArchive: () => void }) {
   const [activeFilter, setActiveFilter] = useState<'python' | 'flask-web' | 'c-cpp'>('python');
   const headerRef = useRef<HTMLDivElement>(null);

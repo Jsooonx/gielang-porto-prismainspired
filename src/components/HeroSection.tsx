@@ -50,6 +50,7 @@ export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  // Controls background video overlay opacity to create a smooth fade transition during looping
   useEffect(() => {
     let animationFrameId: number;
     
@@ -63,20 +64,18 @@ export function HeroSection() {
         const dur = video.duration;
         const cur = video.currentTime;
         if (dur > 0) {
-          const fadeWindow = 0.9;  // Total transition window
-          const holdWindow = 0.25; // Hold solid black at loop point
+          const fadeWindow = 0.9;
+          const holdWindow = 0.25;
           
           if (cur < holdWindow) {
             overlay.style.opacity = "1";
           } else if (cur < fadeWindow) {
-            // Fade out from black
             const progress = (cur - holdWindow) / (fadeWindow - holdWindow);
             const easeOutProgress = Math.sin((progress * Math.PI) / 2);
             overlay.style.opacity = String(1 - easeOutProgress);
           } else if (dur - cur < holdWindow) {
             overlay.style.opacity = "1";
           } else if (dur - cur < fadeWindow) {
-            // Fade in to black
             const progress = ((dur - cur) - holdWindow) / (fadeWindow - holdWindow);
             const easeInProgress = Math.sin((progress * Math.PI) / 2);
             overlay.style.opacity = String(1 - easeInProgress);
@@ -97,6 +96,7 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
+  // Background visual scaling and blur scroll effects
   const scale = useTransform(scrollYProgress, [0, 0.1, 1], [1, 1, 0.9]);
   const y = useTransform(scrollYProgress, [0, 0.1, 1], ["0vh", "0vh", "15vh"]);
   const opacity = useTransform(scrollYProgress, [0, 0.15, 0.9], [1, 1, 0]);
@@ -159,7 +159,6 @@ export function HeroSection() {
         }} 
         className="relative w-full h-full overflow-hidden bg-zinc-950 flex flex-col justify-between origin-center"
       >
-        
         <video
           ref={videoRef}
           src="/13510813_1920_1080_30fps.mp4"
@@ -174,7 +173,6 @@ export function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         />
 
-        {/* Video loop transition overlay */}
         <div 
           ref={overlayRef}
           id="video-fade-overlay" 
@@ -184,7 +182,6 @@ export function HeroSection() {
 
         <div className="absolute inset-0 noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none select-none z-10" />
 
-        {/* Localized gradients to prevent excessive black wash on the content */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent pointer-events-none z-10" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/70 to-transparent pointer-events-none z-10" />
 
@@ -207,7 +204,6 @@ export function HeroSection() {
 
         <div className="relative z-20 w-full px-6 sm:px-8 md:px-10 lg:px-12 pt-6 sm:pt-8 md:pt-10 lg:pt-12 pb-16 sm:pb-20 md:pb-24 lg:pb-28 flex flex-col justify-end items-center">
           <div className="max-w-7xl mx-auto w-full flex flex-col items-center gap-5 sm:gap-6 text-center">
-            
             <div className="w-full flex justify-center select-none mb-1">
               <WordsPullUp
                 text="Gielang"
@@ -216,7 +212,6 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-col items-center gap-5 sm:gap-6 max-w-xl sm:max-w-2xl">
-              
               <motion.p
                 variants={descVariants}
                 initial="hidden"
@@ -242,7 +237,6 @@ export function HeroSection() {
                   </div>
                 </a>
 
-                {/* Mobile & Tablet Social Links (Inline in the content flow) */}
                 <motion.div
                   variants={socialVariants}
                   initial="hidden"
@@ -263,13 +257,10 @@ export function HeroSection() {
                   ))}
                 </motion.div>
               </motion.div>
-
             </div>
-
           </div>
         </div>
 
-        {/* Desktop Profile Links (Absolute positioned bottom-left) */}
         <motion.div
           variants={socialVariants}
           initial="hidden"
@@ -289,7 +280,6 @@ export function HeroSection() {
             </a>
           ))}
         </motion.div>
-
       </motion.div>
     </section>
   );

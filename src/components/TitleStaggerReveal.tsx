@@ -6,6 +6,7 @@ interface TitleStaggerRevealProps {
   className?: string;
 }
 
+// Staggered character reveal in view
 export function TitleStaggerReveal({ text, className = "" }: TitleStaggerRevealProps) {
   const ref = useRef<HTMLHeadingElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
@@ -14,7 +15,7 @@ export function TitleStaggerReveal({ text, className = "" }: TitleStaggerRevealP
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.03, // Delays between each character animation
+        staggerChildren: 0.03,
       },
     },
   };
@@ -29,12 +30,11 @@ export function TitleStaggerReveal({ text, className = "" }: TitleStaggerRevealP
       rotate: 0,
       transition: {
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1], // Fluid premium easing curve
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
 
-  // Split sentence by words first
   const words = text.split(" ");
 
   return (

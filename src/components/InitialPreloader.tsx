@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
+// SNAPPY preloader animation prior to page rendering
 export function InitialPreloader({ onComplete }: { onComplete: () => void }) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Lock scroll on mount
     document.body.style.overflow = "hidden";
     
-    // Auto trigger exit after 1.3s (snappy reveal)
     const timer = setTimeout(() => {
       setIsVisible(false);
     }, 1300);
@@ -19,7 +18,6 @@ export function InitialPreloader({ onComplete }: { onComplete: () => void }) {
   }, []);
 
   const handleAnimationComplete = () => {
-    // Unlock scroll and notify parent
     document.body.style.overflow = "";
     onComplete();
   };
@@ -75,7 +73,6 @@ export function InitialPreloader({ onComplete }: { onComplete: () => void }) {
           }}
           className="fixed inset-0 bg-[#0c0d0c] z-[99999] flex flex-col items-center justify-center pointer-events-auto select-none"
         >
-          {/* Bottom curving SVG overlay for the organic transition look */}
           <svg
             className="absolute top-full left-0 w-full h-[12vh] fill-[#0c0d0c] pointer-events-none"
             viewBox="0 0 1440 100"
@@ -84,10 +81,8 @@ export function InitialPreloader({ onComplete }: { onComplete: () => void }) {
             <path d="M0,0 L1440,0 Q720,100 0,0 Z" />
           </svg>
 
-          {/* Noise overlay */}
           <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay" />
 
-          {/* Typography Reveal */}
           <motion.div
             variants={containerVariants}
             initial="hidden"

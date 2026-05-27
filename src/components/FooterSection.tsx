@@ -45,7 +45,6 @@ function RolloverNavLink({
   );
 }
 
-// Helper: create x + opacity from scrollYProgress
 function useRevealX(
   p: MotionValue<number>,
   fromX: number,
@@ -68,6 +67,7 @@ function useRevealY(
   return { y, opacity };
 }
 
+// Footer section with page routing links, center text reveals, and technology ticker
 export function FooterSection({ onNavigate }: FooterSectionProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -76,7 +76,6 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
     offset: ["start end", "start 0.3"],
   });
 
-  // ── LEFT COLUMN ───────────────────────────────────────────────────
   const pagesLabel  = useRevealX(scrollYProgress, -140, 0.00, 0.55);
   const navLink0    = useRevealX(scrollYProgress, -200, 0.05, 0.60);
   const navLink1    = useRevealX(scrollYProgress, -260, 0.10, 0.65);
@@ -84,20 +83,17 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
   const navLink3    = useRevealX(scrollYProgress, -380, 0.16, 0.75);
   const navLink4    = useRevealX(scrollYProgress, -380, 0.16, 0.75);
 
-  // ── CENTER WORDS (alternate left / right) ─────────────────────────
-  const word0 = useRevealX(scrollYProgress, -110, 0.05, 0.65); // BUILDING  ← left
-  const word1 = useRevealX(scrollYProgress,  110, 0.10, 0.70); // Systems,  → right
-  const word2 = useRevealX(scrollYProgress, -110, 0.15, 0.75); // SOLVING   ← left
-  const word3 = useRevealX(scrollYProgress,  110, 0.20, 0.80); // Problems. → right
+  const word0 = useRevealX(scrollYProgress, -110, 0.05, 0.65);
+  const word1 = useRevealX(scrollYProgress,  110, 0.10, 0.70);
+  const word2 = useRevealX(scrollYProgress, -110, 0.15, 0.75);
+  const word3 = useRevealX(scrollYProgress,  110, 0.20, 0.80);
 
-  // ── RIGHT COLUMN ──────────────────────────────────────────────────
   const followLabel = useRevealX(scrollYProgress,  140, 0.00, 0.55);
   const social0     = useRevealX(scrollYProgress,  200, 0.05, 0.60);
   const social1     = useRevealX(scrollYProgress,  260, 0.10, 0.65);
   const social2     = useRevealX(scrollYProgress,  320, 0.13, 0.70);
   const social3     = useRevealX(scrollYProgress,  380, 0.16, 0.75);
 
-  // ── BOTTOM ELEMENTS (rise from below) ─────────────────────────────
   const tickerReveal  = useRevealY(scrollYProgress, 60, 0.55, 1.0);
   const bottomReveal  = useRevealY(scrollYProgress, 40, 0.65, 1.0);
 
@@ -131,10 +127,8 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
       ref={ref}
       className="relative bg-[#0a0a0a] overflow-hidden"
     >
-      {/* Noise overlay */}
       <div className="absolute inset-0 bg-noise opacity-[0.04] pointer-events-none" />
 
-      {/* Top curved separator */}
       <svg
         className="absolute top-0 left-0 w-full h-[6vw] fill-black pointer-events-none"
         viewBox="0 0 1440 60"
@@ -143,16 +137,10 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
         <path d="M0,0 L1440,0 L1440,60 Q720,0 0,60 Z" />
       </svg>
 
-      {/* ── MAIN CONTENT ─────────────────────────────────────────────── */}
       <div className="relative z-10 pt-[8vw] pb-0">
-
-        {/* Radial glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(222,219,200,0.06)_0%,transparent_65%)] pointer-events-none" />
 
-        {/* ── 3-COLUMN GRID ─────────────────────────────────────────── */}
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-16 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-16 md:gap-8 items-start">
-
-          {/* LEFT — every element individually offset */}
           <div className="flex flex-col gap-1 md:pt-24">
             <motion.span
               style={{ ...pagesLabel, willChange: "transform, opacity" }}
@@ -180,7 +168,6 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
             ))}
           </div>
 
-          {/* CENTER — each word scatters in from alternating sides */}
           <div className="flex flex-col items-center text-center gap-0 max-w-[520px] mx-auto w-full select-none">
             {centerWords.map(({ text, className, reveal }) => (
               <div key={text} className="overflow-hidden">
@@ -194,7 +181,6 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
             ))}
           </div>
 
-          {/* RIGHT — every element individually offset (mirrored) */}
           <div className="flex flex-col gap-1 md:pt-24 md:items-end">
             <motion.span
               style={{ ...followLabel, willChange: "transform, opacity" }}
@@ -223,7 +209,6 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
           </div>
         </div>
 
-        {/* ── TECH STACK TICKER — rises from below ──────────────────── */}
         <motion.div
           style={{ ...tickerReveal, willChange: "transform, opacity" }}
           className="mt-16 sm:mt-20 border-t border-white/5 overflow-hidden py-5 relative"
@@ -254,7 +239,6 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
           </motion.div>
         </motion.div>
 
-        {/* ── BOTTOM BAR — rises from below ─────────────────────────── */}
         <motion.div
           style={{ ...bottomReveal, willChange: "transform, opacity" }}
           className="border-t border-white/5 px-6 sm:px-12 md:px-16 py-5 flex flex-col sm:flex-row items-center justify-between gap-3"
@@ -271,7 +255,6 @@ export function FooterSection({ onNavigate }: FooterSectionProps) {
             </a>
           </div>
         </motion.div>
-
       </div>
     </footer>
   );

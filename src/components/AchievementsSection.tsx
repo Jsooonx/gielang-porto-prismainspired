@@ -37,6 +37,7 @@ const childVariants = {
   }
 };
 
+// Timeline section displaying achievements, educational history, and activities
 export function AchievementsSection() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'achievement' | 'activity' | 'education'>('all');
   const headerRef = useRef<HTMLDivElement>(null);
@@ -131,7 +132,6 @@ export function AchievementsSection() {
                   className="overflow-hidden"
                 >
                   <div className="relative flex flex-col lg:grid lg:grid-cols-[150px_80px_1fr] xl:grid-cols-[200px_100px_1fr] 2xl:grid-cols-[240px_120px_1fr] gap-0 group/item">
-                    {/* Row 1 (Header) - Desktop only */}
                     <div className="hidden lg:block lg:col-start-3 lg:row-start-1 pb-4">
                       <p className="font-serif italic text-3xl sm:text-4xl text-primary mb-1 leading-none">{item.year}</p>
                       {item.role && (
@@ -139,12 +139,10 @@ export function AchievementsSection() {
                       )}
                     </div>
 
-                    {/* Row 1, Column 2 - Desktop vertical line upper half */}
                     <div className="hidden lg:flex lg:col-start-2 lg:row-start-1 justify-center relative w-full h-full">
                       <div className="w-[1px] h-full bg-white/[0.08]" />
                     </div>
 
-                    {/* Left Side Column - Desktop only (Image on Left in Pola 2) - Row 2, Column 1 */}
                     <div className="hidden lg:flex lg:col-start-1 lg:row-start-2 justify-end items-center relative">
                       {isImageLeft && (
                         <motion.div
@@ -163,12 +161,9 @@ export function AchievementsSection() {
                       )}
                     </div>
 
-                    {/* Desktop Middle Column - Row 2, Column 2 */}
                     <div className="hidden lg:flex lg:col-start-2 lg:row-start-2 items-center justify-center relative h-full w-full min-h-[120px]">
-                      {/* Continuous Vertical Line for Desktop */}
                       <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/[0.08] z-0" />
                       
-                      {/* Circle Icon */}
                       <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0 z-10 relative">
                         {item.category === "achievement" ? (
                           <Trophy className="w-3.5 h-3.5" />
@@ -179,7 +174,6 @@ export function AchievementsSection() {
                         )}
                       </div>
 
-                      {/* Left Connector (Pola 2 only) */}
                       {isImageLeft && (
                         <div className="absolute left-0 lg:w-[22px] xl:w-[32px] 2xl:w-[42px] top-1/2 -translate-y-1/2 flex items-center justify-start text-primary/40 pointer-events-none z-10">
                           <motion.div
@@ -202,7 +196,6 @@ export function AchievementsSection() {
                         </div>
                       )}
 
-                      {/* Right Connector (All items) */}
                       <div className="absolute right-0 lg:w-[22px] xl:w-[32px] 2xl:w-[42px] top-1/2 -translate-y-1/2 flex items-center justify-end text-primary/40 pointer-events-none z-10">
                         <motion.div
                           initial={{ scaleX: 0 }}
@@ -224,7 +217,6 @@ export function AchievementsSection() {
                       </div>
                     </div>
 
-                    {/* Mobile Middle Column - Shown only on Mobile */}
                     <div className="flex flex-col items-center shrink-0 w-9 pt-1 relative lg:hidden">
                       <div className="w-9 h-9 rounded-full bg-[#161616] border border-primary/30 flex items-center justify-center text-primary shadow-lg shadow-black/50 shrink-0 z-10">
                         {item.category === "achievement" ? (
@@ -238,10 +230,8 @@ export function AchievementsSection() {
                       <div className="w-[1px] flex-grow bg-white/[0.08] mt-3" />
                     </div>
 
-                    {/* Right Column - Content (Card & optional Image on Right in Pola 1) - Row 2, Column 3 */}
                     <div className="flex-grow pb-14 lg:col-start-3 lg:row-start-2 lg:flex lg:items-center">
                       <div className="w-full">
-                        {/* Mobile header (hidden on desktop) */}
                         <div className="lg:hidden mt-1">
                           <p className="font-serif italic text-2xl text-primary leading-none">{item.year}</p>
                           {item.role && (
@@ -249,9 +239,7 @@ export function AchievementsSection() {
                           )}
                         </div>
 
-                        {/* Card & Image Container */}
                         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-3 xl:gap-4 2xl:gap-6 w-full mt-2 lg:mt-0">
-                          {/* Card */}
                           <div className="bg-[#101010] rounded-2xl border border-white/5 p-6 sm:p-8 hover:border-primary/20 transition-colors duration-300 w-full lg:w-[320px] xl:w-[380px] 2xl:w-[420px] lg:shrink-0 relative z-10">
                             <h4 className="text-base sm:text-lg font-normal text-[#E1E0CC] mb-2">{item.title}</h4>
                             <p className="text-xs text-gray-400 font-light leading-relaxed mb-5">{item.description}</p>
@@ -267,7 +255,6 @@ export function AchievementsSection() {
                               </ul>
                             )}
 
-                            {/* Mobile-only Image (embedded at bottom of Card) */}
                             {hasImage && (
                               <div className="lg:hidden mt-5 w-full rounded-xl border border-white/5 overflow-hidden bg-zinc-950">
                                 <img src={item.image} alt={item.title} className="w-full h-auto object-cover max-h-[220px]" />
@@ -275,7 +262,6 @@ export function AchievementsSection() {
                             )}
                           </div>
 
-                          {/* Right-pointing connector and Right Image - Desktop only (Pola 1) */}
                           {isImageRight && (
                             <>
                               <div className="hidden lg:flex items-center justify-center flex-grow min-w-[24px] lg:max-w-[20px] xl:max-w-[40px] 2xl:max-w-[60px] text-primary/40">

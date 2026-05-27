@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Github, ExternalLink, Instagram } from "lucide-react";
 
@@ -13,6 +13,7 @@ interface CardData {
   imageSrc?: string;
 }
 
+// 3D fanned deck of social and coding cards
 export function SocialsFanOut() {
   const [isDeckHovered, setIsDeckHovered] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
@@ -50,7 +51,7 @@ export function SocialsFanOut() {
   };
 
   const getCardRotation = (index: number, isHovered: boolean) => {
-    const baseRotation = (index - 2) * 5; // Center is 0, left is negative, right is positive
+    const baseRotation = (index - 2) * 5;
     return isHovered ? baseRotation * 0.4 : baseRotation;
   };
 
@@ -113,13 +114,10 @@ export function SocialsFanOut() {
 
   return (
     <section className="relative bg-black rounded-t-[8vw] md:rounded-t-[4vw] -mt-[8vw] md:-mt-[4vw] pt-[calc(8vw+5rem)] md:pt-[calc(4vw+6rem)] pb-32 px-4 overflow-hidden z-40 shadow-[0_-30px_60px_rgba(0,0,0,0.8)]">
-      {/* Background Decorative Blur */}
       <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(222,219,200,0.05)_0%,transparent_70%)] pointer-events-none select-none" />
       <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay" />
 
       <div className="max-w-6xl mx-auto flex flex-col items-center relative z-10">
-        
-        {/* Section Header */}
         <div className="text-center mb-16 select-none flex flex-col items-center gap-2">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-primary uppercase font-medium tracking-wide">
             What's Up On Socials
@@ -129,7 +127,6 @@ export function SocialsFanOut() {
           </p>
         </div>
 
-        {/* 3D Fanned-Out Cards Container */}
         <div 
           className="relative w-full h-[260px] xs:h-[300px] sm:h-[340px] md:h-[380px] lg:h-[420px] flex items-center justify-center cursor-pointer mt-4"
           onMouseEnter={() => setIsDeckHovered(true)}
@@ -143,7 +140,6 @@ export function SocialsFanOut() {
             const xOffset = getCardOffsets(index, isDeckHovered);
             const rotation = getCardRotation(index, isDeckHovered);
 
-            // Compute depth: hovered card gets top priority, otherwise center-focused Z-index mapping
             let zIndex = 10;
             if (isCardHovered) {
               zIndex = 50;
@@ -163,8 +159,8 @@ export function SocialsFanOut() {
                 style={{
                   width: isMobile ? "130px" : isTablet ? "190px" : "230px",
                   height: isMobile ? "190px" : isTablet ? "270px" : "330px",
-                  outline: "1px solid transparent",       // Crucial for subpixel anti-aliasing on rotated elements
-                  backfaceVisibility: "hidden",           // Forces GPU rasterization for smooth edges
+                  outline: "1px solid transparent",
+                  backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
                 }}
                 animate={{
@@ -181,13 +177,9 @@ export function SocialsFanOut() {
                   mass: 0.8,
                 }}
               >
-                {/* Visual Glass Glow background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${card.bgClass} z-0 transition-all duration-300 group-hover/card:brightness-110`} />
-
-                {/* Diagonal highlight glint on individual hover */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:animate-shimmer pointer-events-none z-10" />
 
-                {/* Crisp Anti-Aliased Border Overlay (inset by 0.5px to prevent clipping aliasing) */}
                 <div 
                   className={`absolute inset-[0.5px] rounded-[1.45rem] pointer-events-none z-30 transition-colors duration-300 border ${
                     card.id === "portrait" 
@@ -203,7 +195,6 @@ export function SocialsFanOut() {
                 />
 
                 {card.isImage ? (
-                  /* Portrait Image Card */
                   <>
                     <img 
                       src={card.imageSrc} 
@@ -217,22 +208,18 @@ export function SocialsFanOut() {
                     </div>
                   </>
                 ) : (
-                  /* Logo Centered Card */
                   <div className="relative z-20 flex flex-col justify-between h-full w-full">
-                    {/* Top small watermark */}
                     <div className="flex justify-between items-center w-full">
                       <span className="text-[8px] font-mono text-gray-600 uppercase tracking-widest">Connect</span>
                       <ExternalLink className="w-2.5 h-2.5 text-gray-600 transition-transform group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5" />
                     </div>
 
-                    {/* Centered Large Logo */}
                     <div className="flex-1 flex items-center justify-center">
                       <div className="transition-transform duration-300 group-hover/card:scale-110">
                         {card.icon}
                       </div>
                     </div>
 
-                    {/* Bottom Label */}
                     <div className="flex flex-col border-t border-white/5 pt-3">
                       <span className="text-white text-xs sm:text-sm font-semibold tracking-wide leading-none">{card.title}</span>
                       <span className="text-[9px] text-gray-500 font-mono tracking-wider mt-1.5 uppercase">{card.subtitle}</span>
@@ -243,7 +230,6 @@ export function SocialsFanOut() {
             );
           })}
         </div>
-
       </div>
     </section>
   );

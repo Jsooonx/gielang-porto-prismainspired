@@ -5,12 +5,12 @@ export interface PageTransitionRef {
   trigger: (onMidpoint: () => void) => Promise<void>;
 }
 
+// Fullscreen curtain slide page transition
 export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
   const [isActive, setIsActive] = useState(false);
   const midpointTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const completeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Clean up timeouts on unmount
   useEffect(() => {
     return () => {
       if (midpointTimeoutRef.current) clearTimeout(midpointTimeoutRef.current);
@@ -20,19 +20,16 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
 
   useImperativeHandle(ref, () => ({
     trigger: (onMidpoint: () => void) => {
-      // Clear any pending timeouts from rapid clicks
       if (midpointTimeoutRef.current) clearTimeout(midpointTimeoutRef.current);
       if (completeTimeoutRef.current) clearTimeout(completeTimeoutRef.current);
 
       return new Promise<void>((resolve) => {
         setIsActive(true);
 
-        // Midpoint scroll callback triggers when screen is fully covered (720ms - 1080ms window)
         midpointTimeoutRef.current = setTimeout(() => {
           onMidpoint();
         }, 720);
 
-        // End transition after animation duration of 1.6s
         completeTimeoutRef.current = setTimeout(() => {
           setIsActive(false);
           resolve();
@@ -41,7 +38,6 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
     },
   }));
 
-  // Curved transition using SVG curves for smooth 60/120fps performance
   const slideVariants = {
     initial: {
       y: "-100%",
@@ -86,7 +82,6 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
             willChange: "transform",
           }}
         >
-          {/* Top curve (visible during exit slide-down) */}
           <svg
             className="absolute bottom-full left-0 w-full h-[12vh] translate-y-[2px] fill-primary pointer-events-none"
             viewBox="0 0 1440 100"
@@ -95,7 +90,6 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
             <path d="M0,100 L1440,100 Q720,0 0,100 Z" />
           </svg>
 
-          {/* Bottom curve (visible during entrance slide-down) */}
           <svg
             className="absolute top-full left-0 w-full h-[12vh] -translate-y-[2px] fill-primary pointer-events-none"
             viewBox="0 0 1440 100"
@@ -104,7 +98,6 @@ export const PageTransition = forwardRef<PageTransitionRef, {}>((_, ref) => {
             <path d="M0,0 L1440,0 Q720,100 0,0 Z" />
           </svg>
 
-          {/* Noise effect inside the transition overlay */}
           <div className="absolute inset-0 bg-noise opacity-[0.04] pointer-events-none mix-blend-overlay" />
           
           <motion.div
