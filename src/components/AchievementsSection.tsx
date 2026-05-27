@@ -65,6 +65,10 @@ export function AchievementsSection() {
         loop
         muted
         playsInline
+        style={{
+          transform: "translate3d(0, 0, 0)",
+          willChange: "opacity, transform",
+        }}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none z-0 opacity-30 mix-blend-lighten"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#161616] via-transparent to-[#161616] z-0 pointer-events-none" />
@@ -109,7 +113,7 @@ export function AchievementsSection() {
       </div>
 
       <div className="max-w-2xl lg:max-w-[860px] xl:max-w-[1060px] 2xl:max-w-6xl mx-auto relative z-10 px-0 lg:px-8">
-        <motion.div layout className="space-y-0">
+        <div className="space-y-0">
           <AnimatePresence initial={false}>
             {visibleItems.map((item) => {
               const hasImage = !!item.image;
@@ -120,11 +124,10 @@ export function AchievementsSection() {
               return (
                 <motion.div
                   key={item.id}
-                  layout
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   className="overflow-hidden"
                 >
                   <div className="relative flex flex-col lg:grid lg:grid-cols-[150px_80px_1fr] xl:grid-cols-[200px_100px_1fr] 2xl:grid-cols-[240px_120px_1fr] gap-0 group/item">
@@ -318,7 +321,7 @@ export function AchievementsSection() {
               );
             })}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

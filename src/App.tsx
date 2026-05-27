@@ -8,11 +8,58 @@ import { AchievementsSection } from "./components/AchievementsSection";
 import { SocialsFanOut } from "./components/SocialsFanOut";
 import { PageTransition, PageTransitionRef } from "./components/PageTransition";
 import { ProjectsArchive } from "./components/ProjectsArchive";
+import { NavigationMenu } from "./components/NavigationMenu";
 
 export default function App() {
   const pageTransitionRef = useRef<PageTransitionRef>(null);
   const [isTransitionActive, setIsTransitionActive] = useState(false);
   const [currentView, setCurrentView] = useState<'main' | 'archive'>('main');
+  const [activeSection, setActiveSection] = useState<string>("#story");
+
+  const handleNavigation = (targetId: string) => {
+    if (targetId.startsWith("#")) {
+      const targetElement = document.querySelector(targetId) as HTMLElement | null;
+      
+      if (currentView === 'archive') {
+        // Trigger curtain transition back to main view
+        if (pageTransitionRef.current) {
+          setIsTransitionActive(true);
+          pageTransitionRef.current.trigger(() => {
+            setCurrentView('main');
+            setTimeout(() => {
+              const element = document.querySelector(targetId) as HTMLElement | null;
+              if (element) {
+                element.scrollIntoView({ behavior: "auto" });
+              }
+            }, 50);
+          }).then(() => {
+            setIsTransitionActive(false);
+          });
+        } else {
+          setCurrentView('main');
+          setTimeout(() => {
+            const element = document.querySelector(targetId) as HTMLElement | null;
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        }
+      } else {
+        // Already on main view, trigger the curtain page transition!
+        if (targetElement && pageTransitionRef.current) {
+          setIsTransitionActive(true); // Trigger scale down
+          pageTransitionRef.current.trigger(() => {
+            // Scroll immediately while screen is covered by the curtain
+            targetElement.scrollIntoView({ behavior: "auto" });
+          }).then(() => {
+            setIsTransitionActive(false); // Restore normal scale
+          });
+        } else if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -69,20 +116,36 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (currentView !== 'main') return;
+
+    const sections = ["#story", "#projects", "#achievements", "#inquiries"];
+    
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      for (const sectionId of sections) {
+        const el = document.querySelector(sectionId) as HTMLElement | null;
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [currentView]);
+
   return (
     <div className="bg-[#050505] text-[#E1E0CC] selection:bg-primary selection:text-black min-h-screen font-sans overflow-x-hidden relative">
-      <motion.div
-        animate={{
-          scale: isTransitionActive ? 0.94 : 1,
-          borderRadius: isTransitionActive ? "2.5rem" : "0rem",
-          y: isTransitionActive ? "2vh" : "0vh",
-        }}
-        transition={{
-          duration: 1.8,
-          ease: [0.76, 0, 0.24, 1], // Exactly matching the curtain transition curve
-        }}
-        className="w-full bg-black origin-center overflow-hidden"
-      >
+      <div className="w-full bg-black origin-center overflow-hidden">
         {currentView === 'main' ? (
           <>
             <HeroSection />
@@ -150,9 +213,10 @@ export default function App() {
             </div>
           </div>
         </footer>
-      </motion.div>
+      </div>
 
       <PageTransition ref={pageTransitionRef} />
+      <NavigationMenu currentView={currentView} activeSection={activeSection} onNavigate={handleNavigation} />
     </div>
   );
 }

@@ -167,6 +167,10 @@ export function HeroSection() {
           loop
           muted
           playsInline
+          style={{
+            transform: "translate3d(0, 0, 0)",
+            willChange: "transform, opacity",
+          }}
           className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         />
 
