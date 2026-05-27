@@ -112,9 +112,9 @@ export function SocialsFanOut() {
   ];
 
   return (
-    <section className="relative bg-black pt-28 pb-32 px-4 overflow-hidden border-t border-white/5">
+    <section className="relative bg-black rounded-t-[8vw] md:rounded-t-[4vw] -mt-[8vw] md:-mt-[4vw] pt-[calc(8vw+5rem)] md:pt-[calc(4vw+6rem)] pb-32 px-4 overflow-hidden z-40 shadow-[0_-30px_60px_rgba(0,0,0,0.8)]">
       {/* Background Decorative Blur */}
-      <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none select-none" />
+      <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(222,219,200,0.05)_0%,transparent_70%)] pointer-events-none select-none" />
       <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay" />
 
       <div className="max-w-6xl mx-auto flex flex-col items-center relative z-10">

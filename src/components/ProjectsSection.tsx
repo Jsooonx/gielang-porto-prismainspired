@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from "motion/react";
 import { Check, Github, ExternalLink, Code, ChevronDown, ChevronUp } from "lucide-react";
 import { projectsData } from "../data";
 import { ProjectItem } from "../types";
+import { TitleStaggerReveal } from "./TitleStaggerReveal";
 
 const containerVariants = {
   hidden: { 
@@ -42,7 +43,10 @@ function ProjectCard({ project }: { project: ProjectItem; key?: string }) {
 
   return (
     <motion.div
-      layout
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => setIsFlipped(!isFlipped)}
       className="relative w-full h-[450px] perspective-1000 cursor-pointer group"
     >
@@ -180,7 +184,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative bg-black py-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative bg-black rounded-t-[8vw] md:rounded-t-[4vw] -mt-[8vw] md:-mt-[4vw] pt-[calc(8vw+4rem)] md:pt-[calc(4vw+6rem)] pb-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden z-20 shadow-[0_-30px_60px_rgba(0,0,0,0.8)]"
     >
       <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
 
@@ -191,12 +195,10 @@ export function ProjectsSection() {
           animate={headerInView ? "visible" : "hidden"}
           className="bg-[#101010] rounded-2xl border border-white/5 flex flex-col items-center justify-center py-16 sm:py-20 px-8 text-center select-none"
         >
-          <motion.h2
-            variants={childVariants}
+          <TitleStaggerReveal
+            text="Featured Projects."
             className="font-serif italic text-4xl sm:text-5xl md:text-6xl text-primary tracking-wide mb-4"
-          >
-            Featured Projects.
-          </motion.h2>
+          />
           <motion.p
             variants={childVariants}
             className="text-gray-500 font-light text-sm sm:text-base max-w-lg"
@@ -223,16 +225,15 @@ export function ProjectsSection() {
       </div>
 
       <motion.div
-        layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto w-full relative z-10"
       >
         {activeFilter === 'all' && (
           <motion.div
             key="decorative-video"
-            layout
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="relative h-[450px] rounded-2xl overflow-hidden group/video border border-white/5 bg-zinc-950"
           >
             <video

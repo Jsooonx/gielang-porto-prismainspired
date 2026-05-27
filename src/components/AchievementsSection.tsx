@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { Trophy, Sparkles, Pin, GraduationCap, ArrowLeft, ArrowRight } from "lucide-react";
 import { achievementsData } from "../data";
+import { TitleStaggerReveal } from "./TitleStaggerReveal";
 
 const containerVariants = {
   hidden: { 
@@ -54,9 +55,12 @@ export function AchievementsSection() {
   const visibleItemsWithImages = visibleItems.filter((item) => item.image);
 
   return (
-    <section id="achievements" className="relative bg-black py-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden">
-      <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+    <section 
+      id="achievements" 
+      className="relative bg-[#161616] rounded-t-[8vw] md:rounded-t-[4vw] -mt-[8vw] md:-mt-[4vw] pt-[calc(8vw+4rem)] md:pt-[calc(4vw+6rem)] pb-24 px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden z-30 shadow-[0_-30px_60px_rgba(0,0,0,0.8)]"
+    >
+      <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(222,219,200,0.05)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(222,219,200,0.05)_0%,transparent_70%)] pointer-events-none" />
 
       <div ref={headerRef} className="max-w-4xl mx-auto mb-16 relative z-10 w-full">
         <motion.div
@@ -65,12 +69,10 @@ export function AchievementsSection() {
           animate={headerInView ? "visible" : "hidden"}
           className="bg-[#101010] rounded-2xl border border-white/5 flex flex-col items-center justify-center py-16 sm:py-20 px-8 text-center select-none"
         >
-          <motion.h2
-            variants={childVariants}
+          <TitleStaggerReveal
+            text="Achievements & Activities."
             className="font-serif italic text-4xl sm:text-5xl md:text-6xl text-primary tracking-wide mb-4"
-          >
-            Achievements &amp; Activities.
-          </motion.h2>
+          />
           <motion.p
             variants={childVariants}
             className="text-gray-500 font-light text-sm sm:text-base max-w-lg"

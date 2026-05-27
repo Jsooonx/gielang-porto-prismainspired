@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, Github } from "lucide-react";
 import { WordsPullUp } from "./WordsPullUp";
 
@@ -45,6 +46,64 @@ const socialLinks = [
 ];
 
 export function HeroSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let animationFrameId: number;
+    
+    const updateFade = () => {
+      const video = videoRef.current;
+      const overlay = overlayRef.current;
+      if (video && overlay) {
+        if (video.playbackRate !== 0.5) {
+          video.playbackRate = 0.75;
+        }
+        const dur = video.duration;
+        const cur = video.currentTime;
+        if (dur > 0) {
+          const fadeWindow = 0.9;  // Total transition window
+          const holdWindow = 0.25; // Hold solid black at loop point
+          
+          if (cur < holdWindow) {
+            overlay.style.opacity = "1";
+          } else if (cur < fadeWindow) {
+            // Fade out from black
+            const progress = (cur - holdWindow) / (fadeWindow - holdWindow);
+            const easeOutProgress = Math.sin((progress * Math.PI) / 2);
+            overlay.style.opacity = String(1 - easeOutProgress);
+          } else if (dur - cur < holdWindow) {
+            overlay.style.opacity = "1";
+          } else if (dur - cur < fadeWindow) {
+            // Fade in to black
+            const progress = ((dur - cur) - holdWindow) / (fadeWindow - holdWindow);
+            const easeInProgress = Math.sin((progress * Math.PI) / 2);
+            overlay.style.opacity = String(1 - easeInProgress);
+          } else {
+            overlay.style.opacity = "0";
+          }
+        }
+      }
+      animationFrameId = requestAnimationFrame(updateFade);
+    };
+
+    animationFrameId = requestAnimationFrame(updateFade);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 0.1, 1], [1, 1, 0.9]);
+  const y = useTransform(scrollYProgress, [0, 0.1, 1], ["0vh", "0vh", "15vh"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.9], [1, 1, 0]);
+  const blurValue = useTransform(scrollYProgress, [0, 0.15, 0.85], [0, 0, 16]);
+  const filter = useTransform(blurValue, (v) => v === 0 ? "none" : `blur(${v}px)`);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.1, 1], ["2rem", "2rem", "4rem"]);
+
   const descVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -85,11 +144,25 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full p-4 md:p-6 bg-black flex flex-col justify-between">
-      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col justify-between">
+    <section ref={containerRef} className="relative h-screen w-full p-4 md:p-6 bg-black flex flex-col justify-between">
+      <motion.div 
+        style={{ 
+          scale, 
+          y, 
+          opacity, 
+          borderRadius, 
+          filter,
+          transformStyle: "preserve-3d",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+          willChange: "transform, filter",
+        }} 
+        className="relative w-full h-full overflow-hidden bg-zinc-950 flex flex-col justify-between origin-center"
+      >
         
         <video
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+          ref={videoRef}
+          src="/bg.mp4"
           autoPlay
           loop
           muted
@@ -97,9 +170,19 @@ export function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         />
 
+        {/* Video loop transition overlay */}
+        <div 
+          ref={overlayRef}
+          id="video-fade-overlay" 
+          className="absolute inset-0 bg-black pointer-events-none z-10" 
+          style={{ opacity: 1 }}
+        />
+
         <div className="absolute inset-0 noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none select-none z-10" />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80 pointer-events-none z-10" />
+        {/* Localized gradients to prevent excessive black wash on the content */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/70 to-transparent pointer-events-none z-10" />
 
         <nav className="absolute top-0 left-1/2 -translate-x-1/2 z-50 bg-black/95 rounded-b-2xl md:rounded-b-3xl px-4 py-2.5 sm:px-6 md:px-12 sm:py-3 flex items-center justify-center gap-3.5 sm:gap-6 md:gap-10 lg:gap-12 border-x border-b border-white/5 shadow-2xl w-auto max-w-[95vw] sm:max-w-none">
           {navItems.map((item) => (
@@ -118,7 +201,7 @@ export function HeroSection() {
 
         <div />
 
-        <div className="relative z-20 w-full p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-end items-center">
+        <div className="relative z-20 w-full px-6 sm:px-8 md:px-10 lg:px-12 pt-6 sm:pt-8 md:pt-10 lg:pt-12 pb-16 sm:pb-20 md:pb-24 lg:pb-28 flex flex-col justify-end items-center">
           <div className="max-w-7xl mx-auto w-full flex flex-col items-center gap-5 sm:gap-6 text-center">
             
             <div className="w-full flex justify-center select-none mb-1">
@@ -169,7 +252,7 @@ export function HeroSection() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/5 bg-zinc-950/40 text-primary/70 hover:border-primary/30 hover:text-primary transition-all duration-300 font-mono text-[9px] tracking-widest font-semibold uppercase"
+                      className="group flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 bg-black/60 text-primary hover:border-primary/40 hover:text-white transition-all duration-300 font-mono text-[9px] tracking-widest font-semibold uppercase"
                     >
                       {link.icon}
                       <span>{link.label}</span>
@@ -188,7 +271,7 @@ export function HeroSection() {
           variants={socialVariants}
           initial="hidden"
           animate="visible"
-          className="hidden lg:flex absolute bottom-6 left-12 z-30 items-center gap-3"
+          className="hidden lg:flex absolute bottom-16 left-16 z-30 items-center gap-3"
         >
           {socialLinks.map((link) => (
             <a
@@ -196,7 +279,7 @@ export function HeroSection() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-zinc-950/40 text-primary/70 hover:border-primary/30 hover:text-primary transition-all duration-300 hover:-translate-y-0.5 font-mono text-[9px] tracking-widest font-semibold uppercase"
+              className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-black/60 text-primary hover:border-primary/40 hover:text-white transition-all duration-300 hover:-translate-y-0.5 font-mono text-[9px] tracking-widest font-semibold uppercase"
             >
               {link.icon}
               <span>{link.label}</span>
@@ -204,7 +287,7 @@ export function HeroSection() {
           ))}
         </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }
