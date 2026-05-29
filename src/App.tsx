@@ -69,6 +69,7 @@ export default function App() {
       wheelMultiplier: 1.0,
       syncTouch: false,
     });
+    (window as any).lenis = lenis;
 
     let rafId: number;
     function raf(time: number) {
@@ -112,6 +113,7 @@ export default function App() {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      (window as any).lenis = undefined;
       document.removeEventListener("click", handleAnchorClick);
     };
   }, []);
